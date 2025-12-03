@@ -1,0 +1,1491 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MBTI性格测试 - 发现真实的自己</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+            margin-bottom: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        .header p {
+            color: #666;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+        
+        .dimensions-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .dimension-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8eaf6 100%);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .dimension-card:hover {
+            transform: translateY(-5px);
+            border-color: #667eea;
+        }
+        
+        .dimension-icon {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+        
+        .dimension-name {
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+        
+        .dimension-desc {
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        .features-list {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8eaf6 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+        
+        .features-list h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        .features-list ul {
+            list-style: none;
+        }
+        
+        .features-list li {
+            padding: 10px 0;
+            color: #666;
+            font-size: 1em;
+            border-bottom: 1px solid #e8eaf6;
+        }
+        
+        .features-list li:before {
+            content: "✓ ";
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .input-group {
+            margin: 30px 0;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 18px;
+            border: 2px solid #e8eaf6;
+            border-radius: 12px;
+            font-size: 1.1em;
+            text-align: center;
+            transition: all 0.3s;
+            letter-spacing: 2px;
+        }
+        
+        .input-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 18px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 15px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+        
+        .btn-secondary:hover {
+            background: #f5f7fa;
+        }
+        
+        .error-message {
+            background: #ffe0e0;
+            color: #d32f2f;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            text-align: center;
+            display: none;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e8eaf6;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s;
+            border-radius: 10px;
+        }
+        
+        .progress-text {
+            color: #667eea;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        
+        .question-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8eaf6 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .question-text {
+            color: #333;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .option {
+            padding: 18px;
+            background: white;
+            border: 2px solid #e8eaf6;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.05em;
+            color: #666;
+        }
+        
+        .option:hover {
+            border-color: #667eea;
+            background: #f5f7fa;
+            transform: translateX(5px);
+        }
+        
+        .option.selected {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #667eea;
+        }
+        
+        .navigation-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .navigation-buttons .btn {
+            margin-top: 0;
+        }
+        
+        .result-banner {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .result-banner h2 {
+            font-size: 2em;
+            margin-bottom: 15px;
+        }
+        
+        .mbti-type {
+            font-size: 4em;
+            font-weight: bold;
+            margin: 20px 0;
+            letter-spacing: 10px;
+        }
+        
+        .mbti-nickname {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.3);
+            padding: 10px 30px;
+            border-radius: 25px;
+            font-size: 1.2em;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin: 40px 0;
+        }
+        
+        .scores-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .score-item {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8eaf6 100%);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .score-item-name {
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        
+        .score-item-value {
+            font-size: 1.8em;
+            color: #333;
+            font-weight: bold;
+        }
+        
+        .score-item-desc {
+            color: #999;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        
+        .type-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8eaf6 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border: 2px solid #667eea;
+        }
+        
+        .type-card h3 {
+            color: #667eea;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+        
+        .type-card p {
+            color: #666;
+            line-height: 1.8;
+            font-size: 1.05em;
+        }
+        
+        .characteristics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 25px 0;
+        }
+        
+        .characteristic-item {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .characteristic-title {
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .characteristic-list {
+            font-size: 0.9em;
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .unlock-section {
+            background: linear-gradient(135deg, #FFF9F0 0%, #FFE082 100%);
+            padding: 40px;
+            border-radius: 20px;
+            margin: 40px 0;
+            border: 3px solid #FFA726;
+        }
+        
+        .unlock-section h3 {
+            color: #E65100;
+            font-size: 2em;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .payment-section {
+            width: 100%;
+            max-width: 450px;
+            margin: 20px auto 0 auto;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+        }
+
+        .payment-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            color: white;
+            transition: transform 0.2s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+        }
+        
+        .payment-btn:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+        
+        .payment-btn.alipay {
+            background: #00A3EE;
+        }
+        
+        .payment-btn.wechat {
+            background: #07C160;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .card {
+                padding: 25px;
+            }
+            
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .dimensions-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .scores-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .characteristics {
+                grid-template-columns: 1fr;
+            }
+            
+            .mbti-type {
+                font-size: 3em;
+            }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+    </style>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?94479f2e2ae9601128e0dc0a6659260f";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+<body>
+    <div class="container">
+        <div id="cardVerifyPage" class="card">
+            <div class="header">
+                <h1>🎭 MBTI性格测试</h1>
+                <p>发现真实的自己，了解性格类型</p>
+                <span class="badge">专业16型人格测试 · 基于心理学理论</span>
+            </div>
+            
+            <div class="input-group">
+                <input type="text" id="cardInput" placeholder="请输入测评卡号" maxlength="20">
+            </div>
+            
+            <button class="btn btn-primary" onclick="verifyCard()">🧭 开始测评</button>
+            
+            <div class="dimensions-grid" style="margin-top: 40px;">
+                <div class="dimension-card">
+                    <div class="dimension-icon">🌟</div>
+                    <div class="dimension-name">E-I 维度</div>
+                    <div class="dimension-desc">外向 vs 内向</div>
+                </div>
+                <div class="dimension-card">
+                    <div class="dimension-icon">🎯</div>
+                    <div class="dimension-name">S-N 维度</div>
+                    <div class="dimension-desc">实感 vs 直觉</div>
+                </div>
+                <div class="dimension-card">
+                    <div class="dimension-icon">💡</div>
+                    <div class="dimension-name">T-F 维度</div>
+                    <div class="dimension-desc">思考 vs 情感</div>
+                </div>
+                <div class="dimension-card">
+                    <div class="dimension-icon">⚡</div>
+                    <div class="dimension-name">J-P 维度</div>
+                    <div class="dimension-desc">判断 vs 感知</div>
+                </div>
+            </div>
+            
+            <div class="features-list">
+                <h3>📋 测评包含</h3>
+                <ul>
+                    <li>40题专业心理量表</li>
+                    <li>16种性格类型分析</li>
+                    <li>4大核心维度评估</li>
+                    <li><strong style="color:#E65100;">完整性格解析报告 (¥2.9解锁)</strong></li>
+                </ul>
+            </div>
+            
+            <div class="error-message" id="errorMessage"></div>
+        </div>
+        
+        <div id="testPage" class="card hidden">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text" id="progressText">第1题 / 共40题</div>
+            
+            <div class="question-card">
+                <div class="question-text" id="questionText"></div>
+                <div class="options" id="optionsContainer"></div>
+            </div>
+            
+            <div class="navigation-buttons">
+                <button class="btn btn-secondary" id="prevBtn" onclick="prevQuestion()" style="display: none;">← 上一题</button>
+                <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()">下一题 →</button>
+            </div>
+        </div>
+        
+        <div id="freeResultPage" class="card hidden">
+            <div class="result-banner">
+                <h2>🎭 您的MBTI性格类型</h2>
+                <div class="mbti-type" id="mbtiType">INTJ</div>
+                <div class="mbti-nickname" id="mbtiNickname">建筑师</div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="barChart"></canvas>
+            </div>
+            
+            <div class="scores-list" id="scoresList"></div>
+            
+            <div class="type-card">
+                <h3 id="typeName">INTJ - 建筑师</h3>
+                <p id="typeDesc">想象力丰富的战略家，凡事都有计划。善于独立思考，追求知识和能力的提升。</p>
+            </div>
+            
+            <!-- 新增：核心特质详细分析 -->
+            <div style="background: linear-gradient(135deg, #f5f7fa 0%, #e8eaf6 100%); padding: 30px; border-radius: 15px; margin: 30px 0;">
+                <h3 style="color: #667eea; font-size: 1.6em; margin-bottom: 20px; text-align: center;">
+                    🌟 核心特质分析
+                </h3>
+                <div id="coreTraits"></div>
+            </div>
+            
+            <!-- 新增：性格优势与挑战 -->
+            <div class="characteristics">
+                <div class="characteristic-item">
+                    <div class="characteristic-title">✅ 性格优势</div>
+                    <div class="characteristic-list" id="strengthsList">
+                        • 战略思维<br>
+                        • 独立自主<br>
+                        • 追求完美<br>
+                        • 逻辑分析
+                    </div>
+                </div>
+                <div class="characteristic-item">
+                    <div class="characteristic-title">⚠️ 成长方向</div>
+                    <div class="characteristic-list" id="challengesList">
+                        • 过于理性<br>
+                        • 沟通技巧<br>
+                        • 情感表达<br>
+                        • 灵活应变
+                    </div>
+                </div>
+                <div class="characteristic-item">
+                    <div class="characteristic-title">🎯 适合职业</div>
+                    <div class="characteristic-list" id="careersList">
+                        • 科学家<br>
+                        • 工程师<br>
+                        • 分析师<br>
+                        • 战略顾问
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 新增：在工作中的表现 -->
+            <div style="background: white; padding: 30px; border-radius: 15px; margin: 30px 0; border-left: 5px solid #667eea;">
+                <h3 style="color: #667eea; font-size: 1.5em; margin-bottom: 20px;">
+                    💼 在工作中的你
+                </h3>
+                <div id="workStyle"></div>
+            </div>
+            
+            <!-- 新增：人际关系风格 -->
+            <div style="background: white; padding: 30px; border-radius: 15px; margin: 30px 0; border-left: 5px solid #764ba2;">
+                <h3 style="color: #764ba2; font-size: 1.5em; margin-bottom: 20px;">
+                    👥 人际关系风格
+                </h3>
+                <div id="relationshipStyle"></div>
+            </div>
+            
+            <!-- 新增：学习与成长建议 -->
+            <div style="background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%); padding: 30px; border-radius: 15px; margin: 30px 0; border-left: 5px solid #4CAF50;">
+                <h3 style="color: #2E7D32; font-size: 1.5em; margin-bottom: 20px;">
+                    🎓 给你的成长建议
+                </h3>
+                <div id="growthAdvice"></div>
+            </div>
+            
+            <!-- 新增：与其他类型的互动 -->
+            <div style="background: white; padding: 30px; border-radius: 15px; margin: 30px 0;">
+                <h3 style="color: #667eea; font-size: 1.5em; margin-bottom: 20px; text-align: center;">
+                    🤝 与其他性格类型的互动
+                </h3>
+                <div id="compatibility"></div>
+            </div>
+            
+            <!-- 新增：你可能的名人代表 -->
+            <div style="background: linear-gradient(135deg, #FFF9F0 0%, #FFE082 100%); padding: 30px; border-radius: 15px; margin: 30px 0;">
+                <h3 style="color: #E65100; font-size: 1.5em; margin-bottom: 20px; text-align: center;">
+                    ⭐ 与你相同类型的名人
+                </h3>
+                <div id="celebrities"></div>
+            </div>
+            
+            <div class="unlock-section">
+                <h3>🎁 解锁更深度的分析</h3>
+                <p style="text-align: center; color: #666; margin: 20px 0; line-height: 2;">
+                    上面只是基础分析，付费后可获得：
+                </p>
+                
+                <div style="background: white; padding: 25px; border-radius: 15px; margin: 25px 0;">
+                    <ul style="list-style: none; padding: 0; color: #666; line-height: 2.5;">
+                        <li style="padding: 12px 0; border-bottom: 1px solid #F5E8D6;">
+                            <strong style="color: #E65100;">✅ 详细职业发展路径：</strong>具体岗位推荐、晋升建议、薪资谈判技巧
+                        </li>
+                        <li style="padding: 12px 0; border-bottom: 1px solid #F5E8D6;">
+                            <strong style="color: #E65100;">✅ 恋爱关系指南：</strong>如何与16种类型相处、约会建议、冲突化解
+                        </li>
+                        <li style="padding: 12px 0; border-bottom: 1px solid #F5E8D6;">
+                            <strong style="color: #E65100;">✅ 个人成长计划：</strong>30天能力提升计划、具体行动步骤
+                        </li>
+                        <li style="padding: 12px 0; border-bottom: 1px solid #F5E8D6;">
+                            <strong style="color: #E65100;">✅ 沟通技巧模板：</strong>针对不同场景的话术、邮件模板
+                        </li>
+                        <li style="padding: 12px 0;">
+                            <strong style="color: #E65100;">✅ PDF完整报告：</strong>可保存、打印、随时查看
+                        </li>
+                    </ul>
+                </div>
+                
+                <div style="text-align: center; margin: 30px 0;">
+                    <div style="font-size: 3em; color: #E65100; font-weight: bold;">¥2.9</div>
+                    <div style="color: #999; margin-top: 10px;">限时特惠 · 一杯奶茶的价格了解真实的自己</div>
+                </div>
+                
+                <div class="payment-section">
+                    <a href="https://qr.alipay.com/tsx15981nt9c4aydmvo2h3d" class="payment-btn alipay" target="_blank">
+                        ⚡ 支付宝支付 ¥2.9
+                    </a>
+                    <a href="javascript:void(0);" class="payment-btn wechat" onclick="alert('请使用支付宝支付')">
+                        ⚡ 微信支付 ¥2.9
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const MASTER_CODE = "MBTI-MASTER";
+        
+        /* 40道MBTI测试题目 */
+        const questions = [
+            /* E-I 维度: 外向 vs 内向 (10题) */
+            {text: '在社交场合中，我通常是主动发起对话的人。', dimension: 0, direction: 'E'},
+            {text: '我喜欢独处，享受一个人的时光。', dimension: 0, direction: 'I'},
+            {text: '与一大群人在一起会让我感到精力充沛。', dimension: 0, direction: 'E'},
+            {text: '我更喜欢深入的一对一交谈，而不是群体聚会。', dimension: 0, direction: 'I'},
+            {text: '我经常主动结识新朋友。', dimension: 0, direction: 'E'},
+            {text: '长时间社交后，我需要独处来恢复精力。', dimension: 0, direction: 'I'},
+            {text: '我喜欢成为众人关注的焦点。', dimension: 0, direction: 'E'},
+            {text: '我倾向于先思考再说话。', dimension: 0, direction: 'I'},
+            {text: '我喜欢参加各种社交活动。', dimension: 0, direction: 'E'},
+            {text: '我有一个小而亲密的朋友圈。', dimension: 0, direction: 'I'},
+            
+            /* S-N 维度: 实感 vs 直觉 (10题) */
+            {text: '我更关注事实和细节，而不是可能性。', dimension: 1, direction: 'S'},
+            {text: '我经常思考未来的各种可能性。', dimension: 1, direction: 'N'},
+            {text: '我喜欢按照既定的方法做事。', dimension: 1, direction: 'S'},
+            {text: '我喜欢创新和尝试新方法。', dimension: 1, direction: 'N'},
+            {text: '我更相信实际经验而非理论。', dimension: 1, direction: 'S'},
+            {text: '我经常会想象事物之间的联系和模式。', dimension: 1, direction: 'N'},
+            {text: '我喜欢处理具体的、实际的问题。', dimension: 1, direction: 'S'},
+            {text: '我喜欢思考抽象的概念和理论。', dimension: 1, direction: 'N'},
+            {text: '我注重当下，活在现实中。', dimension: 1, direction: 'S'},
+            {text: '我经常思考未来和长远的影响。', dimension: 1, direction: 'N'},
+            
+            /* T-F 维度: 思考 vs 情感 (10题) */
+            {text: '做决定时，我更重视逻辑和客观分析。', dimension: 2, direction: 'T'},
+            {text: '做决定时，我会优先考虑他人的感受。', dimension: 2, direction: 'F'},
+            {text: '我认为公平比和谐更重要。', dimension: 2, direction: 'T'},
+            {text: '我很容易理解和感受他人的情绪。', dimension: 2, direction: 'F'},
+            {text: '我倾向于批判性地分析问题。', dimension: 2, direction: 'T'},
+            {text: '我很难对别人说"不"。', dimension: 2, direction: 'F'},
+            {text: '别人可能认为我过于理性或冷漠。', dimension: 2, direction: 'T'},
+            {text: '维持和谐的人际关系对我很重要。', dimension: 2, direction: 'F'},
+            {text: '我更看重真相，即使会伤害他人。', dimension: 2, direction: 'T'},
+            {text: '我经常为他人着想，有时忽略自己的需求。', dimension: 2, direction: 'F'},
+            
+            /* J-P 维度: 判断 vs 感知 (10题) */
+            {text: '我喜欢提前计划并按计划行事。', dimension: 3, direction: 'J'},
+            {text: '我更喜欢保持开放和灵活。', dimension: 3, direction: 'P'},
+            {text: '我有条理，喜欢把事情做完。', dimension: 3, direction: 'J'},
+            {text: '我经常拖延到最后一刻才开始工作。', dimension: 3, direction: 'P'},
+            {text: '我喜欢列清单并按顺序完成任务。', dimension: 3, direction: 'J'},
+            {text: '我喜欢即兴发挥，适应变化。', dimension: 3, direction: 'P'},
+            {text: '未完成的事情会让我感到不安。', dimension: 3, direction: 'J'},
+            {text: '我倾向于同时进行多个项目。', dimension: 3, direction: 'P'},
+            {text: '我喜欢确定性和可预测性。', dimension: 3, direction: 'J'},
+            {text: '我喜欢探索新的选择，即使已经有了计划。', dimension: 3, direction: 'P'}
+        ];
+        
+        const options = ['完全不符合', '不太符合', '不确定', '比较符合', '非常符合'];
+        
+        let currentQuestion = 0;
+        let answers = new Array(40).fill(0);
+        
+        function verifyCard() {
+            const cardInput = document.getElementById('cardInput');
+            const errorDiv = document.getElementById('errorMessage');
+            const cardCode = cardInput.value.trim().toUpperCase();
+            
+            if (cardCode === MASTER_CODE || cardCode.length >= 8) {
+                showTestPage();
+            } else {
+                errorDiv.textContent = '请输入有效的测评卡号';
+                errorDiv.style.display = 'block';
+            }
+        }
+        
+        function showTestPage() {
+            document.getElementById('cardVerifyPage').classList.add('hidden');
+            document.getElementById('testPage').classList.remove('hidden');
+            currentQuestion = 0;
+            answers = new Array(40).fill(0);
+            renderQuestion();
+        }
+        
+        function renderQuestion() {
+            const question = questions[currentQuestion];
+            document.getElementById('questionText').textContent = `Q${currentQuestion + 1}: ${question.text}`;
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                if (answers[currentQuestion] === index + 1) {
+                    optionDiv.classList.add('selected');
+                }
+                optionDiv.textContent = option;
+                optionDiv.onclick = () => selectOption(index + 1);
+                optionsContainer.appendChild(optionDiv);
+            });
+            
+            const progress = ((currentQuestion + 1) / 40) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('progressText').textContent = `第${currentQuestion + 1}题 / 共40题`;
+            
+            document.getElementById('prevBtn').style.display = currentQuestion > 0 ? 'block' : 'none';
+            document.getElementById('nextBtn').textContent = currentQuestion === 39 ? '完成测评 ✓' : '下一题 →';
+        }
+        
+        function selectOption(value) {
+            answers[currentQuestion] = value;
+            setTimeout(() => {
+                if (currentQuestion < 39) {
+                    nextQuestion();
+                } else {
+                    renderQuestion();
+                }
+            }, 200);
+        }
+        
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                renderQuestion();
+            }
+        }
+        
+        function nextQuestion() {
+            if (answers[currentQuestion] === 0) {
+                alert('请选择一个选项');
+                return;
+            }
+            
+            if (currentQuestion < 39) {
+                currentQuestion++;
+                renderQuestion();
+            } else {
+                calculateResult();
+            }
+        }
+        
+        function calculateResult() {
+            // 计算每个维度的得分
+            const scores = {E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0};
+            
+            questions.forEach((q, i) => {
+                const score = answers[i];
+                scores[q.direction] += score;
+            });
+            
+            // 确定MBTI类型
+            const type = 
+                (scores.E > scores.I ? 'E' : 'I') +
+                (scores.S > scores.N ? 'S' : 'N') +
+                (scores.T > scores.F ? 'T' : 'F') +
+                (scores.J > scores.P ? 'J' : 'P');
+            
+            // MBTI类型描述
+            // MBTI类型详细数据库
+            const typeDetails = {
+                'INTJ': {
+                    name: 'INTJ - 建筑师',
+                    nickname: '建筑师',
+                    desc: '想象力丰富的战略家，凡事都有计划。善于独立思考，追求知识和能力的提升。',
+                    coreTraits: [
+                        '战略性思维：善于看到大局，制定长远计划',
+                        '独立性强：喜欢独立工作，自主决策',
+                        '追求知识：对新知识和理论有强烈好奇心',
+                        '完美主义：对自己和他人都有高标准'
+                    ],
+                    strengths: ['战略思维', '独立自主', '逻辑分析', '追求卓越'],
+                    challenges: ['过于理性', '沟通技巧', '情感表达', '灵活应变'],
+                    careers: ['科学家', '工程师', '系统分析师', '战略顾问', '研究员', '建筑师'],
+                    workStyle: '你在工作中是一个天生的战略家。喜欢分析复杂问题，制定长远规划。你独立工作效率最高，能够专注于深度思考。对工作质量要求极高，不满足于表面的解决方案。',
+                    relationshipStyle: '在人际关系中，你倾向于深度而非广度。你有一个小而精的朋友圈，重视智力层面的交流。可能显得冷漠或难以接近，但对真正的朋友非常忠诚。需要学会更多地表达情感和理解他人感受。',
+                    growthAdvice: [
+                        '学会倾听他人的情感需求，不要只关注逻辑',
+                        '尝试更灵活地应对变化，不要过于执着于计划',
+                        '练习用更温和的方式表达批评和建议',
+                        '给自己和他人留有犯错的空间'
+                    ],
+                    compatibility: {
+                        best: 'ENFP、ENTP - 能激发你的创造力',
+                        good: 'INTJ、INFJ - 深度理解你的思维方式',
+                        challenging: 'ESFP、ESTP - 可能觉得过于肤浅'
+                    },
+                    celebrities: ['埃隆·马斯克', '马克·扎克伯格', '牛顿', '尼采', '克里斯托弗·诺兰']
+                },
+                'INTP': {
+                    name: 'INTP - 逻辑学家',
+                    nickname: '逻辑学家',
+                    desc: '具有创造力的思想家，对知识有着难以满足的渴望。擅长分析和解决复杂问题。',
+                    coreTraits: [
+                        '分析思维：喜欢拆解复杂问题，寻找内在逻辑',
+                        '理论导向：对抽象概念和理论框架感兴趣',
+                        '好奇心强：不断探索新领域和新想法',
+                        '独立思考：不轻信权威，喜欢质疑和验证'
+                    ],
+                    strengths: ['逻辑分析', '创新思维', '客观理性', '问题解决'],
+                    challenges: ['实际应用', '情感表达', '社交技巧', '完成任务'],
+                    careers: ['科学家', '程序员', '数学家', '哲学家', '研究员', '分析师'],
+                    workStyle: '你是天生的问题解决者和理论家。喜欢探索复杂的概念，提出创新的解决方案。你在独立工作时最有创造力，需要足够的思考空间。可能会因为过于追求完美的理论而忽视实际应用。',
+                    relationshipStyle: '你在社交中可能显得有些距离感和心不在焉。更喜欢讨论想法而非闲聊。你的朋友圈很小，但关系深厚。需要学会更多地关注他人的情感需求，而不只是逻辑层面的交流。',
+                    growthAdvice: [
+                        '学会将理论转化为实际行动',
+                        '注意倾听他人的情感，不要只关注逻辑',
+                        '设定明确的截止日期，避免无休止的完善',
+                        '主动分享你的想法，不要都憋在心里'
+                    ],
+                    compatibility: {
+                        best: 'ENTJ、ESTJ - 能帮你实现想法',
+                        good: 'INTP、INTJ - 理解你的思维方式',
+                        challenging: 'ESFJ、ISFJ - 可能觉得过于情感化'
+                    },
+                    celebrities: ['爱因斯坦', '比尔·盖茨', '拉里·佩奇', '亚里士多德', '达尔文']
+                },
+                'ENTJ': {
+                    name: 'ENTJ - 指挥官',
+                    nickname: '指挥官',
+                    desc: '大胆、富有想象力且意志强大的领导者，总能找到或创造解决方法。',
+                    coreTraits: [
+                        '天生领导：善于组织资源，指挥团队',
+                        '战略眼光：能看到全局，制定宏伟计划',
+                        '果断高效：快速决策，推动执行',
+                        '目标导向：专注于结果和成就'
+                    ],
+                    strengths: ['领导能力', '战略规划', '果断决策', '高效执行'],
+                    challenges: ['过于强势', '忽视情感', '不够耐心', '工作狂'],
+                    careers: ['CEO', '管理者', '企业家', '律师', '投资银行家', '军官'],
+                    workStyle: '你是天生的领导者和组织者。善于制定战略，整合资源，推动团队达成目标。你工作高效，果断决策，不喜欢拖延和低效。可能会因为过于关注结果而忽视团队成员的感受。',
+                    relationshipStyle: '在人际关系中，你往往占据主导地位。你直接、坦率，有时可能显得过于强势。你欣赏有能力、有主见的人。需要学会更多地倾听和尊重他人的想法，不要总是控制局面。',
+                    growthAdvice: [
+                        '学会倾听团队成员的想法和感受',
+                        '不要急于下结论，给他人表达的机会',
+                        '注意工作与生活的平衡',
+                        '用更温和的方式表达批评'
+                    ],
+                    compatibility: {
+                        best: 'INTP、INFP - 提供不同视角',
+                        good: 'ENTJ、INTJ - 相互理解和欣赏',
+                        challenging: 'ISFP、INFP - 可能觉得过于敏感'
+                    },
+                    celebrities: ['史蒂夫·乔布斯', '玛格丽特·撒切尔', '拿破仑', '富兰克林·罗斯福']
+                },
+                'ENTP': {
+                    name: 'ENTP - 辩论家',
+                    nickname: '辩论家',
+                    desc: '聪明好奇的思想家，喜欢智力上的挑战。善于提出新观点和创新方案。',
+                    coreTraits: [
+                        '创新思维：不断产生新想法和可能性',
+                        '善于辩论：享受智力层面的交锋',
+                        '适应力强：能快速应对变化',
+                        '魅力四射：善于激发他人的兴趣'
+                    ],
+                    strengths: ['创新能力', '思维敏捷', '适应变化', '说服力强'],
+                    challenges: ['难以专注', '不善执行', '争强好胜', '忽视细节'],
+                    careers: ['创业者', '发明家', '营销专家', '顾问', '律师', '演说家'],
+                    workStyle: '你是创新的推动者和观点的挑战者。喜欢头脑风暴，提出创新方案。你工作时充满活力，但可能难以长期专注于单一项目。更喜欢开创新项目而非维护现有系统。',
+                    relationshipStyle: '你在社交中活跃而有魅力，善于激发有趣的讨论。你喜欢辩论，有时可能显得好斗。你欣赏聪明、有趣的人。需要学会不要为了辩论而辩论，注意他人的感受。',
+                    growthAdvice: [
+                        '学会将想法落实为行动',
+                        '注意完成已开始的项目，不要总是追求新鲜感',
+                        '倾听他人观点，不要总想证明自己是对的',
+                        '关注细节和实际执行'
+                    ],
+                    compatibility: {
+                        best: 'INFJ、INTJ - 能深入讨论想法',
+                        good: 'ENTP、ENFP - 相互激发创造力',
+                        challenging: 'ISTJ、ISFJ - 可能觉得过于传统'
+                    },
+                    celebrities: ['托马斯·爱迪生', '本杰明·富兰克林', '马克·吐温', '亚当·萨维奇']
+                },
+                'INFJ': {
+                    name: 'INFJ - 提倡者',
+                    nickname: '提倡者',
+                    desc: '安静而神秘的理想主义者，用不懈的努力去实现自己的目标。',
+                    coreTraits: [
+                        '理想主义：相信能让世界变得更美好',
+                        '洞察人心：能深刻理解他人的动机和感受',
+                        '有原则：坚守自己的价值观和信念',
+                        '使命感强：渴望做有意义的事情'
+                    ],
+                    strengths: ['洞察力强', '富有同情心', '坚持原则', '创造力'],
+                    challenges: ['过度理想化', '容易倦怠', '难以开放', '完美主义'],
+                    careers: ['心理咨询师', '作家', '教师', 'NGO工作者', '人力资源', '艺术家'],
+                    workStyle: '你在工作中追求意义和目标。你关注如何帮助他人和改善世界。你有强大的洞察力，能理解复杂的人际动态。你需要独处时间来思考和充电，可能在团队环境中感到疲惫。',
+                    relationshipStyle: '你在人际关系中深刻而真诚。你有极强的同理心，能深入理解他人。但你也可能因此承担过多他人的情绪负担。你的朋友圈小但关系深厚。需要学会设定界限，保护自己的能量。',
+                    growthAdvice: [
+                        '学会说"不"，不要承担所有人的问题',
+                        '接受不完美的现实，不要过于理想化',
+                        '定期独处充电，不要忽视自己的需求',
+                        '更开放地分享内心世界'
+                    ],
+                    compatibility: {
+                        best: 'ENFP、ENTP - 能激发你的创造力',
+                        good: 'INFJ、INFP - 深度理解和共鸣',
+                        challenging: 'ESTP、ESFP - 可能觉得过于肤浅'
+                    },
+                    celebrities: ['马丁·路德·金', '纳尔逊·曼德拉', '甘地', '柏拉图', 'J.K.罗琳']
+                },
+                'INFP': {
+                    name: 'INFP - 调停者',
+                    nickname: '调停者',
+                    desc: '诗意而善良的利他主义者，总是热心地为正义和公平事业而奋斗。',
+                    coreTraits: [
+                        '价值驱动：由内在价值观和信念指引',
+                        '创造力强：富有想象力和艺术天赋',
+                        '理想主义：相信美好和可能性',
+                        '同理心强：深刻理解和关怀他人'
+                    ],
+                    strengths: ['创造力', '同理心', '适应力', '忠于理想'],
+                    challenges: ['过于敏感', '难以决断', '理想化', '拖延倾向'],
+                    careers: ['作家', '艺术家', '心理咨询师', '社工', '教师', '摄影师'],
+                    workStyle: '你在工作中追求意义和价值。你有丰富的创造力和想象力，适合从事创意工作。你需要足够的自主性和灵活性。可能会因为过于追求完美而拖延，或因为项目与价值观冲突而失去动力。',
+                    relationshipStyle: '你在人际关系中温暖、真诚，富有同情心。你深刻理解他人的感受，但也容易受伤。你理想化人际关系，可能会感到失望。需要学会更现实地看待他人，设定健康的界限。',
+                    growthAdvice: [
+                        '学会接受不完美，不要过于理想化',
+                        '设定明确的截止日期，克服拖延',
+                        '不要把批评过于当真，建立心理韧性',
+                        '学会更直接地表达需求'
+                    ],
+                    compatibility: {
+                        best: 'ENFJ、ENTJ - 帮你实现理想',
+                        good: 'INFP、INFJ - 相互理解和支持',
+                        challenging: 'ESTJ、ISTJ - 可能觉得过于务实'
+                    },
+                    celebrities: ['威廉·莎士比亚', '约翰·列侬', 'J.R.R.托尔金', '文森特·梵高']
+                },
+                'ENFJ': {
+                    name: 'ENFJ - 主人公',
+                    nickname: '主人公',
+                    desc: '富有魅力且鼓舞人心的领导者，能够吸引听众的注意力。',
+                    coreTraits: [
+                        '天生领袖：善于激励和引导他人',
+                        '富有同理心：深刻理解他人需求',
+                        '沟通高手：表达清晰、有感染力',
+                        '责任感强：关心集体利益和福祉'
+                    ],
+                    strengths: ['领导能力', '沟通协调', '激励他人', '组织能力'],
+                    challenges: ['过度付出', '难以说不', '过于理想化', '容易倦怠'],
+                    careers: ['教师', 'HR经理', '培训师', '公关专家', '政治家', '非营利组织领导'],
+                    workStyle: '你是天生的导师和领导者。你善于识别和培养他人的潜力，营造积极的团队氛围。你关注人际和谐，可能会为了维持关系而做出妥协。需要学会在他人需求和自己目标之间找到平衡。',
+                    relationshipStyle: '你在人际关系中温暖、外向，善于建立深厚的连接。你关心他人的成长和幸福，有时可能过度介入。你需要被认可和欣赏。要学会不要为了取悦他人而牺牲自己的需求。',
+                    growthAdvice: [
+                        '学会说"不"，设定健康的界限',
+                        '关注自己的需求，不要只想着他人',
+                        '接受不是所有人都能被帮助或改变',
+                        '定期充电，避免情感耗竭'
+                    ],
+                    compatibility: {
+                        best: 'INFP、ISFP - 相互欣赏和支持',
+                        good: 'ENFJ、ENFP - 相互激发和鼓励',
+                        challenging: 'ISTP、INTP - 可能觉得过于理性冷漠'
+                    },
+                    celebrities: ['奥普拉·温弗瑞', '巴拉克·奥巴马', '马丁·路德·金', '本·阿弗莱克']
+                },
+                'ENFP': {
+                    name: 'ENFP - 竞选者',
+                    nickname: '竞选者',
+                    desc: '热情、有创造力和善于社交的自由精神，总能找到理由微笑。',
+                    coreTraits: [
+                        '充满热情：对生活充满好奇和兴奋',
+                        '创造力强：不断产生新想法和可能性',
+                        '社交达人：善于建立各种关系',
+                        '价值驱动：追求真实和意义'
+                    ],
+                    strengths: ['创造力', '热情活力', '社交能力', '适应力强'],
+                    challenges: ['难以专注', '过度承诺', '情绪化', '缺乏条理'],
+                    careers: ['记者', '市场营销', '演员', '心理咨询师', '创业者', '公关'],
+                    workStyle: '你在工作中充满创意和热情。你喜欢探索新想法，与人合作。你能激发团队的积极性，但可能难以长期专注于单一项目。你需要变化和新鲜感来保持动力。',
+                    relationshipStyle: '你在社交中活跃而有魅力，善于建立广泛的人际网络。你真诚热情，但有时可能过于理想化关系。你需要深度的情感连接。要学会不要过度承诺，给自己留有空间。',
+                    growthAdvice: [
+                        '学会专注，完成已开始的项目',
+                        '不要过度承诺，学会说"不"',
+                        '建立日常习惯和结构',
+                        '理性看待人际关系，不要过于理想化'
+                    ],
+                    compatibility: {
+                        best: 'INTJ、INFJ - 提供深度和方向',
+                        good: 'ENFP、ENTP - 相互激发创造力',
+                        challenging: 'ISTJ、ESTJ - 可能觉得过于严格'
+                    },
+                    celebrities: ['罗宾·威廉姆斯', '艾伦·德杰尼勒斯', '威尔·史密斯', '昆汀·塔伦蒂诺']
+                },
+                'ISTJ': {
+                    name: 'ISTJ - 物流师',
+                    nickname: '物流师',
+                    desc: '实际而注重事实的人，可靠性无可置疑。做事有条不紊，值得信赖。',
+                    coreTraits: [
+                        '责任感强：认真对待承诺和义务',
+                        '注重细节：关注具体事实和细节',
+                        '有条不紊：喜欢结构和秩序',
+                        '务实可靠：脚踏实地，值得信任'
+                    ],
+                    strengths: ['可靠负责', '条理性强', '注重细节', '实事求是'],
+                    challenges: ['过于僵化', '抗拒变化', '缺乏灵活性', '难以表达情感'],
+                    careers: ['会计师', '审计师', '项目管理', '军官', '质量控制', '法官'],
+                    workStyle: '你是最可靠和负责任的员工。你严格遵守规则和程序，注重细节和准确性。你喜欢清晰的期望和结构化的环境。可能会因为过于坚持既定方法而错过创新机会。',
+                    relationshipStyle: '你在人际关系中忠诚可靠，但可能显得保守和拘谨。你重视承诺，行动多于言语。你需要时间来建立信任。要学会更灵活地应对变化，表达感受。',
+                    growthAdvice: [
+                        '尝试接受变化，不要过于坚持计划',
+                        '学会表达情感和欣赏他人',
+                        '偶尔冒险尝试新方法',
+                        '不要因为追求完美而过度工作'
+                    ],
+                    compatibility: {
+                        best: 'ESFP、ESTP - 带来乐趣和活力',
+                        good: 'ISTJ、ESTJ - 相互理解和尊重',
+                        challenging: 'ENFP、ENTP - 可能觉得过于混乱'
+                    },
+                    celebrities: ['乔治·华盛顿', '安吉拉·默克尔', '沃伦·巴菲特', '杰夫·贝索斯']
+                },
+                'ISFJ': {
+                    name: 'ISFJ - 守卫者',
+                    nickname: '守卫者',
+                    desc: '非常专注且温暖的守护者，时刻准备着保卫所爱之人。细心周到，责任感强。',
+                    coreTraits: [
+                        '细心体贴：关注他人需求和感受',
+                        '忠诚可靠：对人对事都极其负责',
+                        '传统导向：尊重传统和既定规则',
+                        '默默奉献：不求回报地帮助他人'
+                    ],
+                    strengths: ['细心体贴', '可靠忠诚', '勤勉负责', '组织能力'],
+                    challenges: ['过度付出', '难以拒绝', '抗拒变化', '不善表达需求'],
+                    careers: ['护士', '教师', '行政助理', '图书管理员', '营养师', '内审员'],
+                    workStyle: '你是最细心和可靠的团队成员。你关注细节，乐于助人，营造和谐的工作环境。你默默付出，可能不善于主动争取认可。需要学会表达自己的需求和界限。',
+                    relationshipStyle: '你在人际关系中温暖、忠诚，乐于照顾他人。你记得他人的喜好和需求，但可能过度付出而忽视自己。你需要被欣赏和认可。要学会设定界限，不要让自己筋疲力尽。',
+                    growthAdvice: [
+                        '学会说"不"，不要承担所有事情',
+                        '表达自己的需求，不要只关注他人',
+                        '尝试接受变化，不要过于坚持传统',
+                        '寻求认可时更主动'
+                    ],
+                    compatibility: {
+                        best: 'ESTP、ESFP - 带来活力和新鲜感',
+                        good: 'ISFJ、ISTJ - 相互支持和理解',
+                        challenging: 'ENTP、ENFP - 可能觉得过于不稳定'
+                    },
+                    celebrities: ['特蕾莎修女', '凯特·米德尔顿', '罗莎·帕克斯', 'Mr. Rogers']
+                },
+                'ESTJ': {
+                    name: 'ESTJ - 总经理',
+                    nickname: '总经理',
+                    desc: '出色的管理者，在管理事务和人员方面无与伦比。注重秩序和效率。',
+                    coreTraits: [
+                        '组织能力强：善于建立系统和流程',
+                        '果断务实：快速决策，注重效率',
+                        '责任感强：认真履行职责和承诺',
+                        '传统导向：尊重规则和既定秩序'
+                    ],
+                    strengths: ['组织管理', '果断高效', '责任心强', '执行力强'],
+                    challenges: ['过于强硬', '不够灵活', '忽视情感', '过于传统'],
+                    careers: ['企业高管', '项目经理', '警察', '法官', '军官', '银行经理'],
+                    workStyle: '你是天生的管理者和组织者。你建立清晰的流程，确保团队高效运作。你果断决策，不容忍低效和混乱。可能会因为过于关注规则而忽视人的因素。',
+                    relationshipStyle: '你在人际关系中直接、坦率，重视传统和承诺。你是可靠的伴侣和朋友，但可能显得过于强硬。你需要学会更多地倾听和理解他人的感受，不要总想控制局面。',
+                    growthAdvice: [
+                        '学会倾听他人的观点和感受',
+                        '灵活应对变化，不要过于僵化',
+                        '用更温和的方式表达批评',
+                        '认可过程而非只关注结果'
+                    ],
+                    compatibility: {
+                        best: 'ISFP、INFP - 提供不同视角',
+                        good: 'ESTJ、ISTJ - 相互理解和尊重',
+                        challenging: 'INFP、ENFP - 可能觉得过于感性'
+                    },
+                    celebrities: ['亨利·福特', '米歇尔·奥巴马', '西蒙·考威尔', '科林·鲍威尔']
+                },
+                'ESFJ': {
+                    name: 'ESFJ - 执政官',
+                    nickname: '执政官',
+                    desc: '极具同情心、受欢迎且热心肠的人，总是热衷于助人。善于营造和谐氛围。',
+                    coreTraits: [
+                        '热心助人：乐于照顾和支持他人',
+                        '社交能力强：善于建立和维护关系',
+                        '责任感强：认真对待承诺和义务',
+                        '传统导向：尊重社会规范和期望'
+                    ],
+                    strengths: ['人际关系', '组织协调', '责任心强', '热情体贴'],
+                    challenges: ['过度在意他人看法', '难以接受批评', '过于情绪化', '抗拒变化'],
+                    careers: ['护士', '教师', 'HR专员', '活动策划', '销售', '客服经理'],
+                    workStyle: '你是团队的粘合剂和支持者。你营造和谐的工作氛围，关注每个人的需求。你擅长组织活动和协调人际关系。可能会因为过于关注和谐而回避必要的冲突。',
+                    relationshipStyle: '你在人际关系中温暖、体贴，乐于照顾他人。你重视和谐和传统，可能过于在意他人的看法。你需要被欣赏和认可。要学会不要为了取悦他人而忽视自己的需求。',
+                    growthAdvice: [
+                        '学会接受建设性批评，不要过于敏感',
+                        '关注自己的需求，不要只想着他人',
+                        '接受不是所有人都会喜欢你',
+                        '尝试接受变化和新想法'
+                    ],
+                    compatibility: {
+                        best: 'ISFP、ISTP - 提供不同视角',
+                        good: 'ESFJ、ENFJ - 相互支持和理解',
+                        challenging: 'INTP、INTJ - 可能觉得过于冷漠'
+                    },
+                    celebrities: ['泰勒·斯威夫特', '詹妮弗·加纳', '比尔·克林顿', '史蒂夫·哈维']
+                },
+                'ISTP': {
+                    name: 'ISTP - 鉴赏家',
+                    nickname: '鉴赏家',
+                    desc: '大胆且实际的实验者，擅长使用各种工具。善于解决实际问题。',
+                    coreTraits: [
+                        '动手能力强：善于操作工具和机械',
+                        '冷静理性：客观分析问题',
+                        '适应力强：灵活应对变化',
+                        '独立自主：喜欢按自己的节奏工作'
+                    ],
+                    strengths: ['解决问题', '动手能力', '冷静应对', '灵活适应'],
+                    challenges: ['情感表达', '长期承诺', '规则约束', '理论学习'],
+                    careers: ['机械师', '工程师', '飞行员', '消防员', '外科医生', '运动员'],
+                    workStyle: '你是实际问题的解决者。你喜欢动手操作，在危机中保持冷静。你需要自主性和灵活性，不喜欢被规则束缚。可能会因为追求即时结果而忽视长期规划。',
+                    relationshipStyle: '你在人际关系中独立而低调。你用行动而非言语表达关心。你需要个人空间，可能显得冷漠或难以捉摸。要学会更多地表达情感和承诺。',
+                    growthAdvice: [
+                        '学会表达感受，不要只靠行动',
+                        '考虑长期后果，不要只关注当下',
+                        '主动参与社交，不要总是独来独往',
+                        '尊重规则和他人的感受'
+                    ],
+                    compatibility: {
+                        best: 'ESFJ、ESTJ - 提供结构和支持',
+                        good: 'ISTP、ESTP - 相互理解和尊重',
+                        challenging: 'ENFJ、INFJ - 可能觉得过于情绪化'
+                    },
+                    celebrities: ['克林特·伊斯特伍德', '汤姆·克鲁斯', '迈克尔·乔丹', '布鲁斯·李']
+                },
+                'ISFP': {
+                    name: 'ISFP - 探险家',
+                    nickname: '探险家',
+                    desc: '灵活且有魅力的艺术家，时刻准备着探索和体验新事物。',
+                    coreTraits: [
+                        '艺术气质：对美和创造有天生的感受力',
+                        '活在当下：享受当前的体验',
+                        '温和友善：对他人温暖而接纳',
+                        '价值驱动：按照内在价值观生活'
+                    ],
+                    strengths: ['艺术感受力', '适应灵活', '温和友善', '实践能力'],
+                    challenges: ['难以规划', '过于敏感', '回避冲突', '缺乏条理'],
+                    careers: ['艺术家', '设计师', '音乐家', '厨师', '兽医', '理疗师'],
+                    workStyle: '你在工作中追求美和创造。你喜欢实践和体验，而非理论和规划。你需要自由和灵活性，在压力和约束下难以发挥。可能会因为过于关注当下而忽视未来规划。',
+                    relationshipStyle: '你在人际关系中温暖、真诚，但也需要个人空间。你用行动表达关心，但可能难以表达深层情感。你回避冲突，可能会压抑自己的需求。要学会更直接地表达感受和需求。',
+                    growthAdvice: [
+                        '学会规划未来，不要只活在当下',
+                        '直接表达需求，不要压抑情绪',
+                        '适当面对冲突，不要总是回避',
+                        '建立基本的日常结构'
+                    ],
+                    compatibility: {
+                        best: 'ESFJ、ENFJ - 提供支持和方向',
+                        good: 'ISFP、INFP - 相互理解和欣赏',
+                        challenging: 'ENTJ、ESTJ - 可能觉得过于强势'
+                    },
+                    celebrities: ['迈克尔·杰克逊', '玛丽莲·梦露', '鲍勃·迪伦', '凯文·科斯特纳']
+                },
+                'ESTP': {
+                    name: 'ESTP - 企业家',
+                    nickname: '企业家',
+                    desc: '聪明、精力充沛且善于洞察力的人，真心享受生活在边缘的感觉。',
+                    coreTraits: [
+                        '精力充沛：充满活力，喜欢行动',
+                        '善于察言观色：敏锐观察环境和他人',
+                        '冒险精神：喜欢冒险和刺激',
+                        '实用主义：关注实际结果'
+                    ],
+                    strengths: ['行动力强', '善于应变', '社交能力', '实用主义'],
+                    challenges: ['冲动行事', '缺乏耐心', '忽视长远', '规则意识弱'],
+                    careers: ['企业家', '销售', '营销', '急救人员', '股票经纪人', '警察'],
+                    workStyle: '你在工作中充满活力和行动力。你快速决策，在压力下表现出色。你喜欢多样性和挑战，不适合重复性工作。可能会因为追求即时结果而忽视细节和长期规划。',
+                    relationshipStyle: '你在社交中活跃而有魅力，善于读懂他人。你享受当下的乐趣，但可能难以做出长期承诺。你需要刺激和变化。要学会更深入地建立关系，不要总是追求新鲜感。',
+                    growthAdvice: [
+                        '学会三思而后行，不要太冲动',
+                        '考虑长期后果，制定计划',
+                        '培养耐心，完成已开始的项目',
+                        '尊重规则和他人的感受'
+                    ],
+                    compatibility: {
+                        best: 'ISFJ、ISTJ - 提供稳定和支持',
+                        good: 'ESTP、ESFP - 相互激发活力',
+                        challenging: 'INFJ、INFP - 可能觉得过于理想化'
+                    },
+                    celebrities: ['唐纳德·特朗普', '麦当娜', '温斯顿·丘吉尔', '欧内斯特·海明威']
+                },
+                'ESFP': {
+                    name: 'ESFP - 表演者',
+                    nickname: '表演者',
+                    desc: '自发的、精力充沛和热情的表演者，生活在他们周围从不感到无聊。',
+                    coreTraits: [
+                        '热情外向：享受与人互动和表演',
+                        '活在当下：充分享受每一刻',
+                        '乐观积极：总能找到乐趣',
+                        '感染力强：能激发他人的热情'
+                    ],
+                    strengths: ['社交能力', '乐观积极', '适应力强', '感染力'],
+                    challenges: ['难以规划', '易分心', '回避深度', '过于关注他人看法'],
+                    careers: ['演员', '销售', '活动策划', '导游', '教练', '公关'],
+                    workStyle: '你在工作中充满活力和热情。你善于激发团队士气，营造积极氛围。你喜欢与人互动，在动态环境中表现最好。可能会因为追求乐趣而忽视必要的细节和规划。',
+                    relationshipStyle: '你在社交中是派对的灵魂，充满魅力和活力。你慷慨、温暖，喜欢让他人开心。你活在当下，但可能回避深度和长期承诺。要学会更深入地建立关系，不要只停留在表面。',
+                    growthAdvice: [
+                        '学会规划未来，不要只关注当下',
+                        '培养专注力，完成已开始的任务',
+                        '建立深度关系，不要只追求表面乐趣',
+                        '发展独立性，不要过于依赖他人认可'
+                    ],
+                    compatibility: {
+                        best: 'ISFJ、ISTJ - 提供稳定和支持',
+                        good: 'ESFP、ESTP - 相互激发活力',
+                        challenging: 'INTJ、INTP - 可能觉得过于严肃'
+                    },
+                    celebrities: ['玛丽莲·梦露', '埃尔顿·约翰', '杰米·福克斯', '阿黛尔']
+                }
+            };
+            
+            const info = typeDetails[type] || typeDetails['INTJ'];
+            
+            // 计算百分比
+            const percentages = {
+                'E-I': Math.round((scores.E / (scores.E + scores.I)) * 100),
+                'S-N': Math.round((scores.S / (scores.S + scores.N)) * 100),
+                'T-F': Math.round((scores.T / (scores.T + scores.F)) * 100),
+                'J-P': Math.round((scores.J / (scores.J + scores.P)) * 100)
+            };
+            
+            sessionStorage.setItem('mbtiResult', JSON.stringify({
+                type: type,
+                name: info.name,
+                nickname: info.nickname,
+                desc: info.desc,
+                percentages: percentages,
+                details: info
+            }));
+            
+            showFreeResult();
+        }
+        
+        function showFreeResult() {
+            const result = JSON.parse(sessionStorage.getItem('mbtiResult'));
+            const details = result.details;
+            
+            document.getElementById('cardVerifyPage').classList.add('hidden');
+            document.getElementById('testPage').classList.add('hidden');
+            document.getElementById('freeResultPage').classList.remove('hidden');
+            
+            document.getElementById('mbtiType').textContent = result.type;
+            document.getElementById('mbtiNickname').textContent = result.nickname;
+            document.getElementById('typeName').textContent = result.name;
+            document.getElementById('typeDesc').textContent = result.desc;
+            
+            // 渲染核心特质
+            const coreTraitsHtml = details.coreTraits.map(trait => 
+                `<div style="background: white; padding: 15px; border-radius: 10px; margin: 10px 0; border-left: 4px solid #667eea;">
+                    <p style="color: #666; font-size: 1.05em; line-height: 1.6; margin: 0;">${trait}</p>
+                </div>`
+            ).join('');
+            document.getElementById('coreTraits').innerHTML = coreTraitsHtml;
+            
+            // 渲染优势、挑战、职业
+            document.getElementById('strengthsList').innerHTML = details.strengths.map(s => `• ${s}`).join('<br>');
+            document.getElementById('challengesList').innerHTML = details.challenges.map(c => `• ${c}`).join('<br>');
+            document.getElementById('careersList').innerHTML = details.careers.slice(0, 4).map(c => `• ${c}`).join('<br>');
+            
+            // 渲染工作风格
+            document.getElementById('workStyle').innerHTML = `
+                <p style="color: #666; font-size: 1.05em; line-height: 1.8;">${details.workStyle}</p>
+            `;
+            
+            // 渲染人际关系风格
+            document.getElementById('relationshipStyle').innerHTML = `
+                <p style="color: #666; font-size: 1.05em; line-height: 1.8;">${details.relationshipStyle}</p>
+            `;
+            
+            // 渲染成长建议
+            const growthAdviceHtml = details.growthAdvice.map((advice, index) => 
+                `<div style="background: white; padding: 15px; border-radius: 10px; margin: 10px 0; display: flex; align-items: flex-start;">
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0; margin-right: 15px;">
+                        ${index + 1}
+                    </div>
+                    <p style="color: #666; font-size: 1.05em; line-height: 1.6; margin: 0;">${advice}</p>
+                </div>`
+            ).join('');
+            document.getElementById('growthAdvice').innerHTML = growthAdviceHtml;
+            
+            // 渲染互动建议
+            document.getElementById('compatibility').innerHTML = `
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px;">
+                    <div style="background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%); padding: 20px; border-radius: 12px; border-left: 4px solid #4CAF50;">
+                        <div style="color: #2E7D32; font-weight: bold; margin-bottom: 10px;">✅ 最佳搭档</div>
+                        <div style="color: #666; font-size: 0.95em; line-height: 1.6;">${details.compatibility.best}</div>
+                    </div>
+                    <div style="background: linear-gradient(135deg, #FFF9F0 0%, #FFE082 100%); padding: 20px; border-radius: 12px; border-left: 4px solid #FFA726;">
+                        <div style="color: #E65100; font-weight: bold; margin-bottom: 10px;">👍 和谐相处</div>
+                        <div style="color: #666; font-size: 0.95em; line-height: 1.6;">${details.compatibility.good}</div>
+                    </div>
+                    <div style="background: linear-gradient(135deg, #FFEBEE 0%, #FFCDD2 100%); padding: 20px; border-radius: 12px; border-left: 4px solid #E57373;">
+                        <div style="color: #C62828; font-weight: bold; margin-bottom: 10px;">⚠️ 需要磨合</div>
+                        <div style="color: #666; font-size: 0.95em; line-height: 1.6;">${details.compatibility.challenging}</div>
+                    </div>
+                </div>
+            `;
+            
+            // 渲染名人代表
+            const celebritiesHtml = details.celebrities.map(name => 
+                `<div style="background: white; padding: 15px 20px; border-radius: 10px; display: inline-block; margin: 5px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <span style="color: #E65100; font-weight: bold;">⭐</span>
+                    <span style="color: #666; margin-left: 8px;">${name}</span>
+                </div>`
+            ).join('');
+            document.getElementById('celebrities').innerHTML = `
+                <div style="text-align: center;">${celebritiesHtml}</div>
+                <p style="text-align: center; color: #999; margin-top: 20px; font-size: 0.9em;">
+                    这些名人可能拥有与你相同的性格类型
+                </p>
+            `;
+            
+            drawBarChart(result.percentages);
+            
+            const scoresList = document.getElementById('scoresList');
+            scoresList.innerHTML = `
+                <div class="score-item">
+                    <div class="score-item-name">E-I 维度</div>
+                    <div class="score-item-value">${result.type[0] === 'E' ? 'E' : 'I'} ${result.type[0] === 'E' ? result.percentages['E-I'] : 100 - result.percentages['E-I']}%</div>
+                    <div class="score-item-desc">${result.type[0] === 'E' ? '外向型' : '内向型'}</div>
+                </div>
+                <div class="score-item">
+                    <div class="score-item-name">S-N 维度</div>
+                    <div class="score-item-value">${result.type[1] === 'S' ? 'S' : 'N'} ${result.type[1] === 'S' ? result.percentages['S-N'] : 100 - result.percentages['S-N']}%</div>
+                    <div class="score-item-desc">${result.type[1] === 'S' ? '实感型' : '直觉型'}</div>
+                </div>
+                <div class="score-item">
+                    <div class="score-item-name">T-F 维度</div>
+                    <div class="score-item-value">${result.type[2] === 'T' ? 'T' : 'F'} ${result.type[2] === 'T' ? result.percentages['T-F'] : 100 - result.percentages['T-F']}%</div>
+                    <div class="score-item-desc">${result.type[2] === 'T' ? '思考型' : '情感型'}</div>
+                </div>
+                <div class="score-item">
+                    <div class="score-item-name">J-P 维度</div>
+                    <div class="score-item-value">${result.type[3] === 'J' ? 'J' : 'P'} ${result.type[3] === 'J' ? result.percentages['J-P'] : 100 - result.percentages['J-P']}%</div>
+                    <div class="score-item-desc">${result.type[3] === 'J' ? '判断型' : '感知型'}</div>
+                </div>
+            `;
+            
+            window.scrollTo(0, 0);
+        }
+        
+        function drawBarChart(percentages) {
+            const ctx = document.getElementById('barChart').getContext('2d');
+            
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['外向-内向', '实感-直觉', '思考-情感', '判断-感知'],
+                    datasets: [{
+                        label: '倾向程度 (%)',
+                        data: [
+                            percentages['E-I'],
+                            percentages['S-N'],
+                            percentages['T-F'],
+                            percentages['J-P']
+                        ],
+                        backgroundColor: [
+                            'rgba(102, 126, 234, 0.8)',
+                            'rgba(118, 75, 162, 0.8)',
+                            'rgba(102, 126, 234, 0.8)',
+                            'rgba(118, 75, 162, 0.8)'
+                        ],
+                        borderColor: [
+                            'rgb(102, 126, 234)',
+                            'rgb(118, 75, 162)',
+                            'rgb(102, 126, 234)',
+                            'rgb(118, 75, 162)'
+                        ],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
