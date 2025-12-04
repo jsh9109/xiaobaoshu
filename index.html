@@ -3,9 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MBTI性格测试 - 发现真实的自己</title>
+    <title>社会化程度测试 - 你的人情世故指数是多少？</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     
+<script>
+
+var _hmt = _hmt || [];
+
+(function() {
+
+  var hm = document.createElement("script");
+
+  hm.src = "https://hm.baidu.com/hm.js?d74ad23550efd3783204870ed7d61a47";
+
+  var s = document.getElementsByTagName("script")[0]; 
+
+  s.parentNode.insertBefore(hm, s);
+
+})();
+
+</script>
     <style>
         * {
             margin: 0;
@@ -15,7 +33,7 @@
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #FBF8F2 0%, #FAF0E6 100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -29,7 +47,7 @@
             background: white;
             border-radius: 20px;
             padding: 40px;
-            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 20px 60px rgba(160, 127, 86, 0.15);
             margin-bottom: 20px;
         }
         
@@ -39,7 +57,7 @@
         }
         
         .header h1 {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #A07F56 0%, #856847 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -56,7 +74,7 @@
         
         .badge {
             display: inline-block;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #A07F56 0%, #856847 100%);
             color: white;
             padding: 8px 20px;
             border-radius: 20px;
@@ -72,7 +90,7 @@
         }
         
         .dimension-card {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e8eaf6 100%);
+            background: linear-gradient(135deg, #FDF8F2 0%, #F5E8D6 100%);
             padding: 25px;
             border-radius: 15px;
             text-align: center;
@@ -82,7 +100,7 @@
         
         .dimension-card:hover {
             transform: translateY(-5px);
-            border-color: #667eea;
+            border-color: #A07F56;
         }
         
         .dimension-icon {
@@ -91,7 +109,7 @@
         }
         
         .dimension-name {
-            color: #667eea;
+            color: #A07F56;
             font-weight: bold;
             font-size: 1.2em;
             margin-bottom: 5px;
@@ -103,14 +121,14 @@
         }
         
         .features-list {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e8eaf6 100%);
+            background: linear-gradient(135deg, #FDF8F2 0%, #F5E8D6 100%);
             padding: 25px;
             border-radius: 15px;
             margin: 30px 0;
         }
         
         .features-list h3 {
-            color: #667eea;
+            color: #A07F56;
             margin-bottom: 15px;
             font-size: 1.3em;
         }
@@ -123,12 +141,12 @@
             padding: 10px 0;
             color: #666;
             font-size: 1em;
-            border-bottom: 1px solid #e8eaf6;
+            border-bottom: 1px solid #F5E8D6;
         }
         
         .features-list li:before {
             content: "✓ ";
-            color: #667eea;
+            color: #A07F56;
             font-weight: bold;
             margin-right: 10px;
         }
@@ -140,7 +158,7 @@
         .input-group input {
             width: 100%;
             padding: 18px;
-            border: 2px solid #e8eaf6;
+            border: 2px solid #F5E8D6;
             border-radius: 12px;
             font-size: 1.1em;
             text-align: center;
@@ -150,8 +168,8 @@
         
         .input-group input:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+            border-color: #A07F56;
+            box-shadow: 0 0 0 4px rgba(160, 127, 86, 0.1);
         }
         
         .btn {
@@ -167,24 +185,24 @@
         }
         
         .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #A07F56 0%, #856847 100%);
             color: white;
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 8px 25px rgba(160, 127, 86, 0.3);
         }
         
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 12px 35px rgba(160, 127, 86, 0.4);
         }
         
         .btn-secondary {
             background: white;
-            color: #667eea;
-            border: 2px solid #667eea;
+            color: #A07F56;
+            border: 2px solid #A07F56;
         }
         
         .btn-secondary:hover {
-            background: #f5f7fa;
+            background: #FDF8F2;
         }
         
         .error-message {
@@ -197,10 +215,22 @@
             display: none;
         }
         
+        .admin-link {
+            text-align: center;
+            margin-top: 30px;
+            color: #999;
+            font-size: 0.9em;
+            cursor: pointer;
+        }
+        
+        .admin-link:hover {
+            color: #A07F56;
+        }
+        
         .progress-bar {
             width: 100%;
             height: 8px;
-            background: #e8eaf6;
+            background: #F5E8D6;
             border-radius: 10px;
             margin-bottom: 20px;
             overflow: hidden;
@@ -208,13 +238,13 @@
         
         .progress-fill {
             height: 100%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #A07F56 0%, #856847 100%);
             transition: width 0.3s;
             border-radius: 10px;
         }
         
         .progress-text {
-            color: #667eea;
+            color: #A07F56;
             text-align: center;
             font-weight: bold;
             margin-bottom: 30px;
@@ -222,7 +252,7 @@
         }
         
         .question-card {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e8eaf6 100%);
+            background: linear-gradient(135deg, #FDF8F2 0%, #F5E8D6 100%);
             padding: 30px;
             border-radius: 15px;
             margin-bottom: 30px;
@@ -245,7 +275,7 @@
         .option {
             padding: 18px;
             background: white;
-            border: 2px solid #e8eaf6;
+            border: 2px solid #F5E8D6;
             border-radius: 12px;
             cursor: pointer;
             transition: all 0.3s;
@@ -254,15 +284,15 @@
         }
         
         .option:hover {
-            border-color: #667eea;
-            background: #f5f7fa;
+            border-color: #A07F56;
+            background: #FDF8F2;
             transform: translateX(5px);
         }
         
         .option.selected {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #A07F56 0%, #856847 100%);
             color: white;
-            border-color: #667eea;
+            border-color: #A07F56;
         }
         
         .navigation-buttons {
@@ -275,7 +305,7 @@
         }
         
         .result-banner {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #A07F56 0%, #856847 100%);
             color: white;
             padding: 40px;
             border-radius: 20px;
@@ -288,14 +318,13 @@
             margin-bottom: 15px;
         }
         
-        .mbti-type {
+        .rpi-score {
             font-size: 4em;
             font-weight: bold;
             margin: 20px 0;
-            letter-spacing: 10px;
         }
         
-        .mbti-nickname {
+        .rpi-level {
             display: inline-block;
             background: rgba(255, 255, 255, 0.3);
             padding: 10px 30px;
@@ -305,7 +334,7 @@
         
         .chart-container {
             position: relative;
-            height: 300px;
+            height: 400px;
             margin: 40px 0;
         }
         
@@ -317,14 +346,14 @@
         }
         
         .score-item {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e8eaf6 100%);
+            background: linear-gradient(135deg, #FDF8F2 0%, #F5E8D6 100%);
             padding: 20px;
             border-radius: 12px;
-            border-left: 4px solid #667eea;
+            border-left: 4px solid #A07F56;
         }
         
         .score-item-name {
-            color: #667eea;
+            color: #A07F56;
             font-weight: bold;
             margin-bottom: 8px;
         }
@@ -342,15 +371,15 @@
         }
         
         .type-card {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e8eaf6 100%);
+            background: linear-gradient(135deg, #FDF8F2 0%, #F5E8D6 100%);
             padding: 30px;
             border-radius: 15px;
             margin: 30px 0;
-            border: 2px solid #667eea;
+            border: 2px solid #A07F56;
         }
         
         .type-card h3 {
-            color: #667eea;
+            color: #A07F56;
             font-size: 1.8em;
             margin-bottom: 15px;
         }
@@ -376,7 +405,7 @@
         }
         
         .characteristic-title {
-            color: #667eea;
+            color: #A07F56;
             font-weight: bold;
             margin-bottom: 10px;
         }
@@ -387,19 +416,97 @@
             line-height: 1.6;
         }
         
+        .basic-advice {
+            background: linear-gradient(135deg, #FDF8F2 0%, #F5E8D6 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+        }
+        
+        .basic-advice h4 {
+            color: #A07F56;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        
+        .basic-advice ul {
+            list-style: none;
+        }
+        
+        .basic-advice li {
+            padding: 10px 0;
+            color: #666;
+            border-bottom: 1px solid #F5E8D6;
+        }
+        
+        .basic-advice li:before {
+            content: "💡 ";
+            margin-right: 10px;
+        }
+        
         .unlock-section {
-            background: linear-gradient(135deg, #FFF9F0 0%, #FFE082 100%);
+            background: linear-gradient(135deg, #FFEFD5 0%, #F5DEB3 100%);
             padding: 40px;
             border-radius: 20px;
             margin: 40px 0;
-            border: 3px solid #FFA726;
+            border: 3px solid #D55D30;
         }
         
         .unlock-section h3 {
-            color: #E65100;
+            color: #D55D30;
             font-size: 2em;
             text-align: center;
             margin-bottom: 25px;
+        }
+        
+        .comparison-table {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+        }
+        
+        .comparison-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid #F5E8D6;
+        }
+        
+        .comparison-row:last-child {
+            border-bottom: none;
+        }
+        
+        .comparison-free {
+            color: #999;
+        }
+        
+        .comparison-paid {
+            color: #D55D30;
+            font-weight: bold;
+        }
+        
+        .price-tag {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .original-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 1.2em;
+        }
+        
+        .current-price {
+            color: #D55D30;
+            font-size: 3em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .price-note {
+            color: #666;
+            font-size: 0.9em;
         }
         
         .payment-section {
@@ -409,6 +516,13 @@
             background: white;
             padding: 25px;
             border-radius: 15px;
+        }
+
+        .quick-pay-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
         }
 
         .payment-btn {
@@ -423,24 +537,297 @@
             color: white;
             transition: transform 0.2s ease;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            margin-bottom: 15px;
         }
-        
+        .payment-btn .icon {
+            margin-right: 8px;
+            font-size: 18px;
+        }
         .payment-btn:hover {
             transform: translateY(-2px);
             opacity: 0.9;
         }
-        
         .payment-btn.alipay {
             background: #00A3EE;
         }
-        
         .payment-btn.wechat {
             background: #07C160;
         }
+
+        .divider-or {
+            text-align: center;
+            color: #aaa;
+            margin: 25px 0;
+            position: relative;
+        }
+        .divider-or span {
+            background: white;
+            padding: 0 10px;
+            position: relative;
+            z-index: 1;
+        }
+        .divider-or:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 100%;
+            height: 1px;
+            background: #e0e0e0;
+            z-index: 0;
+        }
+
+        .scan-title, .transfer-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .qr-code-grid {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+            text-align: center;
+        }
+        .qr-code-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .qr-code-item img {
+            width: 140px;
+            height: 140px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .scan-tip {
+            text-align: center;
+            font-size: 13px;
+            color: #888;
+            background: #fafafa;
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 20px;
+        }
+
+        .transfer-payment {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .copy-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8f9fa;
+            padding: 12px 15px;
+            border-radius: 8px;
+        }
+        .copy-item span {
+            font-size: 15px;
+            color: #333;
+            font-weight: 500;
+            word-break: break-all;
+        }
+        .copy-item button {
+            padding: 8px 14px;
+            border: none;
+            background: #A07F56;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            margin-left: 10px;
+            flex-shrink: 0;
+        }
+        .copy-item button:hover {
+            background: #856847;
+        }
         
-        .hidden {
-            display: none !important;
+        .report-section {
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border-left: 5px solid #A07F56;
+        }
+        
+        .report-section h3 {
+            color: #A07F56;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+        
+        .report-section h4 {
+            color: #856847;
+            font-size: 1.3em;
+            margin: 25px 0 15px 0;
+        }
+        
+        .report-section p {
+            color: #666;
+            line-height: 1.8;
+            font-size: 1.05em;
+            margin-bottom: 15px;
+        }
+        
+        .thank-banner {
+            background: linear-gradient(135deg, #A07F56 0%, #856847 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .thank-banner h3 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+        
+        .admin-panel {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+        
+        .admin-panel h2 {
+            color: #A07F56;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #FDF8F2 0%, #F5E8D6 100%);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            color: #A07F56;
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+        
+        .stat-label {
+            color: #666;
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+        
+        .recent-records {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 25px 0;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .record-item {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        /* 新增样式：网盘链接显示区域 */
+        .pan-link-section {
+            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border: 3px solid #4CAF50;
+            text-align: center;
+        }
+
+        .pan-link-section h3 {
+            color: #2E7D32;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        .pan-link-box {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+
+       .pan-link-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 15px 0;
+    padding: 15px;
+    background: #F5F5F5;
+    border-radius: 8px;
+    flex-wrap: wrap;
+}
+
+        .pan-link-label {
+            color: #2E7D32;
+            font-weight: bold;
+            font-size: 16px;
+            min-width: 100px;
+        }
+
+        .pan-link-value {
+            flex: 1;
+            color: #333;
+            font-size: 15px;
+            word-break: break-all;
+            margin: 0 15px;
+            font-family: monospace;
+        }
+
+        .copy-pan-btn {
+            padding: 10px 20px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .copy-pan-btn:hover {
+            background: #45a049;
+        }
+
+        .save-tip {
+            background: #FFF9C4;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 4px solid #FBC02D;
+        }
+
+        .save-tip h4 {
+            color: #F57C00;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .save-tip p {
+            color: #666;
+            line-height: 1.8;
+            margin: 5px 0;
         }
         
         @media (max-width: 768px) {
@@ -456,8 +843,16 @@
                 font-size: 1.8em;
             }
             
+            .header p {
+                font-size: 1em;
+            }
+            
             .dimensions-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .chart-container {
+                height: 320px;
             }
             
             .scores-list {
@@ -468,35 +863,197 @@
                 grid-template-columns: 1fr;
             }
             
-            .mbti-type {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .navigation-buttons {
+                flex-direction: column;
+            }
+            .payment-section {
+                padding: 20px 15px;
+            }
+            
+            .qr-code-item img {
+                width: 120px !important;
+                height: 120px !important;
+            }
+            
+            .copy-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .copy-item span {
+                width: 100%;
+                word-break: break-all;
+                margin-bottom: 10px;
+            }
+            
+            .copy-item button {
+                width: 100%;
+                margin-left: 0;
+            }
+            
+            .unlock-section {
+                padding: 25px 20px;
+            }
+            
+            .unlock-section h3 {
+                font-size: 1.3em !important;
+            }
+            
+            .unlock-section img {
+                max-width: 100% !important;
+                height: auto !important;
+            }
+            
+            .pan-link-item {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .pan-link-label,
+            .pan-link-value {
+                width: 100%;
+                text-align: center;
+                margin: 0;
+            }
+            
+            .copy-pan-btn {
+                width: 100%;
+            }
+
+            .rpi-score {
                 font-size: 3em;
             }
+
+            .pan-link-item {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .pan-link-label,
+            .pan-link-value {
+                width: 100%;
+                text-align: center;
+            }
+
+            .copy-pan-btn {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .card {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 1.5em;
+            }
+            
+            .question-text {
+                font-size: 1.1em;
+            }
+            
+            .option {
+                padding: 15px;
+                font-size: 1em;
+            }
+            .payment-btn {
+    font-size: 14px;
+    padding: 12px;
+}
+
+.scan-payment {
+    padding: 15px 10px;
+}
+
+.qr-code-item img {
+    width: 100px !important;
+    height: 100px !important;
+}
+        }
+        
+        .hidden {
+            display: none !important;
         }
         
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.1); }
         }
-    </style>
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?94479f2e2ae9601128e0dc0a6659260f";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
+        
+        @keyframes loading {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+        
+        @keyframes scaleOut {
+            from {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            to {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+        /* 目录展示优化样式 */
+        .catalog-showcase {
+            background: linear-gradient(135deg, #FFF9F0 0%, #FFE082 100%);
+            padding: 35px;
+            border-radius: 20px;
+            margin: 30px 0;
+            border: 3px solid #FFA726;
+        }
 
+        .catalog-image-container img {
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .catalog-image-container img:hover {
+            transform: scale(1.02);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <div id="cardVerifyPage" class="card">
-            <div class="header">
-                <h1>🎭 MBTI性格测试</h1>
-                <p>发现真实的自己，了解性格类型</p>
-                <span class="badge">专业16型人格测试 · 基于心理学理论</span>
-            </div>
+<div class="header">
+    <h1>⭐ 社会化程度测试</h1>
+    <p>你的人情世故指数是多少？</p>
+    <span class="badge">专业评估 · 基于100万字社交能力实战手册</span>
+</div>
             
             <div class="input-group">
                 <input type="text" id="cardInput" placeholder="请输入测评卡号" maxlength="20">
@@ -506,24 +1063,24 @@ var _hmt = _hmt || [];
             
             <div class="dimensions-grid" style="margin-top: 40px;">
                 <div class="dimension-card">
-                    <div class="dimension-icon">🌟</div>
-                    <div class="dimension-name">E-I 维度</div>
-                    <div class="dimension-desc">外向 vs 内向</div>
+                    <div class="dimension-icon">👁️</div>
+                    <div class="dimension-name">人情洞察力</div>
+                    <div class="dimension-desc">识别潜规则和隐藏信号</div>
                 </div>
                 <div class="dimension-card">
                     <div class="dimension-icon">🎯</div>
-                    <div class="dimension-name">S-N 维度</div>
-                    <div class="dimension-desc">实感 vs 直觉</div>
+                    <div class="dimension-name">边界感掌控</div>
+                    <div class="dimension-desc">恰当的亲疏分寸</div>
                 </div>
                 <div class="dimension-card">
-                    <div class="dimension-icon">💡</div>
-                    <div class="dimension-name">T-F 维度</div>
-                    <div class="dimension-desc">思考 vs 情感</div>
+                    <div class="dimension-icon">⚖️</div>
+                    <div class="dimension-name">利益平衡术</div>
+                    <div class="dimension-desc">人情往来的智慧</div>
                 </div>
                 <div class="dimension-card">
-                    <div class="dimension-icon">⚡</div>
-                    <div class="dimension-name">J-P 维度</div>
-                    <div class="dimension-desc">判断 vs 感知</div>
+                    <div class="dimension-icon">🎭</div>
+                    <div class="dimension-name">情绪管理力</div>
+                    <div class="dimension-desc">复杂场景的情绪控制</div>
                 </div>
             </div>
             
@@ -531,13 +1088,15 @@ var _hmt = _hmt || [];
                 <h3>📋 测评包含</h3>
                 <ul>
                     <li>40题专业心理量表</li>
-                    <li>16种性格类型分析</li>
-                    <li>4大核心维度评估</li>
-                    <li><strong style="color:#E65100;">完整性格解析报告 (¥2.9解锁)</strong></li>
+                    <li>4大核心维度分析</li>
+                    <li>社会化程度等级评定</li>
+                    <li><strong style="color:#D55D30;">完整《社会化手册》100万字+6大部分67课 (¥19.9解锁)</strong></li>
                 </ul>
             </div>
             
             <div class="error-message" id="errorMessage"></div>
+            
+            <div class="admin-link" onclick="showAdminPanel()">管理员入口 →</div>
         </div>
         
         <div id="testPage" class="card hidden">
@@ -559,219 +1118,506 @@ var _hmt = _hmt || [];
         
         <div id="freeResultPage" class="card hidden">
             <div class="result-banner">
-                <h2>🎭 您的MBTI性格类型</h2>
-                <div class="mbti-type" id="mbtiType">INTJ</div>
-                <div class="mbti-nickname" id="mbtiNickname">建筑师</div>
+                <h2>📊 社会化程度报告</h2>
+                <p style="font-size: 1.2em; margin-top: 15px;">你的社会化等级（基础版）</p>
+                <div class="rpi-score" id="archetypeIcon">👔</div>
+                <div class="rpi-level" id="archetypeName">中级社交者</div>
             </div>
             
             <div class="chart-container">
-                <canvas id="barChart"></canvas>
+                <canvas id="radarChart"></canvas>
             </div>
             
             <div class="scores-list" id="scoresList"></div>
             
             <div class="type-card">
-                <h3 id="typeName">INTJ - 建筑师</h3>
-                <p id="typeDesc">想象力丰富的战略家，凡事都有计划。善于独立思考，追求知识和能力的提升。</p>
+                <h3 id="typeName">中级社交者</h3>
+                <p id="typeDesc">你已经掌握了基本的社交规则，但在人情世故、边界感把握等方面还有明显的提升空间。通过系统学习，你可以快速进阶到高级社交者。</p>
             </div>
             
-            <!-- 新增：核心特质详细分析 -->
-            <div style="background: linear-gradient(135deg, #f5f7fa 0%, #e8eaf6 100%); padding: 30px; border-radius: 15px; margin: 30px 0;">
-                <h3 style="color: #667eea; font-size: 1.6em; margin-bottom: 20px; text-align: center;">
-                    🌟 核心特质分析
-                </h3>
-                <div id="coreTraits"></div>
-            </div>
-            
-            <!-- 新增：性格优势与挑战 -->
             <div class="characteristics">
                 <div class="characteristic-item">
-                    <div class="characteristic-title">✅ 性格优势</div>
-                    <div class="characteristic-list" id="strengthsList">
-                        • 战略思维<br>
-                        • 独立自主<br>
-                        • 追求完美<br>
-                        • 逻辑分析
+                    <div class="characteristic-title">✅ 你的优势</div>
+                    <div class="characteristic-list">
+                        • 基本礼仪<br>
+                        • 日常交往<br>
+                        • 简单应对
                     </div>
                 </div>
                 <div class="characteristic-item">
-                    <div class="characteristic-title">⚠️ 成长方向</div>
-                    <div class="characteristic-list" id="challengesList">
-                        • 过于理性<br>
-                        • 沟通技巧<br>
-                        • 情感表达<br>
-                        • 灵活应变
+                    <div class="characteristic-title">⚠️ 需要提升</div>
+                    <div class="characteristic-list">
+                        • 深度人脉<br>
+                        • 复杂博弈<br>
+                        • 高级话术
                     </div>
                 </div>
                 <div class="characteristic-item">
-                    <div class="characteristic-title">🎯 适合职业</div>
-                    <div class="characteristic-list" id="careersList">
-                        • 科学家<br>
-                        • 工程师<br>
-                        • 分析师<br>
-                        • 战略顾问
+                    <div class="characteristic-title">🎯 学习方向</div>
+                    <div class="characteristic-list">
+                        • 人情洞察<br>
+                        • 边界建立<br>
+                        • 利益平衡
                     </div>
                 </div>
             </div>
             
-            <!-- 新增：在工作中的表现 -->
-            <div style="background: white; padding: 30px; border-radius: 15px; margin: 30px 0; border-left: 5px solid #667eea;">
-                <h3 style="color: #667eea; font-size: 1.5em; margin-bottom: 20px;">
-                    💼 在工作中的你
-                </h3>
-                <div id="workStyle"></div>
-            </div>
-            
-            <!-- 新增：人际关系风格 -->
-            <div style="background: white; padding: 30px; border-radius: 15px; margin: 30px 0; border-left: 5px solid #764ba2;">
-                <h3 style="color: #764ba2; font-size: 1.5em; margin-bottom: 20px;">
-                    👥 人际关系风格
-                </h3>
-                <div id="relationshipStyle"></div>
-            </div>
-            
-            <!-- 新增：学习与成长建议 -->
-            <div style="background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%); padding: 30px; border-radius: 15px; margin: 30px 0; border-left: 5px solid #4CAF50;">
-                <h3 style="color: #2E7D32; font-size: 1.5em; margin-bottom: 20px;">
-                    🎓 给你的成长建议
-                </h3>
-                <div id="growthAdvice"></div>
-            </div>
-            
-            <!-- 新增：与其他类型的互动 -->
-            <div style="background: white; padding: 30px; border-radius: 15px; margin: 30px 0;">
-                <h3 style="color: #667eea; font-size: 1.5em; margin-bottom: 20px; text-align: center;">
-                    🤝 与其他性格类型的互动
-                </h3>
-                <div id="compatibility"></div>
-            </div>
-            
-            <!-- 新增：你可能的名人代表 -->
-            <div style="background: linear-gradient(135deg, #FFF9F0 0%, #FFE082 100%); padding: 30px; border-radius: 15px; margin: 30px 0;">
-                <h3 style="color: #E65100; font-size: 1.5em; margin-bottom: 20px; text-align: center;">
-                    ⭐ 与你相同类型的名人
-                </h3>
-                <div id="celebrities"></div>
+            <div class="basic-advice">
+                <h4>💡 基础建议（免费版）</h4>
+                <ul>
+                    <li>学会观察：多留意别人的言外之意和肢体语言。</li>
+                    <li>建立边界：明确什么能说、什么不能说的分寸感。</li>
+                    <li>系统学习：免费版只能看到基本倾向，完整版有6大部分67课系统内容。</li>
+                </ul>
             </div>
             
             <div class="unlock-section">
-                <h3>🎁 解锁更深度的分析</h3>
-                <p style="text-align: center; color: #666; margin: 20px 0; line-height: 2;">
-                    上面只是基础分析，付费后可获得：
-                </p>
-                
-                <div style="background: white; padding: 25px; border-radius: 15px; margin: 25px 0;">
-                    <ul style="list-style: none; padding: 0; color: #666; line-height: 2.5;">
-                        <li style="padding: 12px 0; border-bottom: 1px solid #F5E8D6;">
-                            <strong style="color: #E65100;">✅ 详细职业发展路径：</strong>具体岗位推荐、晋升建议、薪资谈判技巧
-                        </li>
-                        <li style="padding: 12px 0; border-bottom: 1px solid #F5E8D6;">
-                            <strong style="color: #E65100;">✅ 恋爱关系指南：</strong>如何与16种类型相处、约会建议、冲突化解
-                        </li>
-                        <li style="padding: 12px 0; border-bottom: 1px solid #F5E8D6;">
-                            <strong style="color: #E65100;">✅ 个人成长计划：</strong>30天能力提升计划、具体行动步骤
-                        </li>
-                        <li style="padding: 12px 0; border-bottom: 1px solid #F5E8D6;">
-                            <strong style="color: #E65100;">✅ 沟通技巧模板：</strong>针对不同场景的话术、邮件模板
-                        </li>
-                        <li style="padding: 12px 0;">
-                            <strong style="color: #E65100;">✅ PDF完整报告：</strong>可保存、打印、随时查看
-                        </li>
-                    </ul>
+                <h3 style="font-size: 1.8em; line-height: 1.6; text-align: center; margin-bottom: 25px;">
+                    您的<strong style="color: #D55D30;">基础版</strong>报告已出 👇<br>
+                    如需 <strong style="color: #D55D30;">《社会化完全手册》</strong> + <strong style="color: #D55D30;">定制化改进方案</strong>，可付费解锁：
+                </h3>
+                <!-- 目录展示区域 - 开始 -->
+                <div style="background: linear-gradient(135deg, #FFF9F0 0%, #FFE082 100%); padding: 35px; border-radius: 20px; margin: 30px 0; border: 3px solid #FFA726;">
+                    <h3 style="color: #E65100; font-size: 1.6em; text-align: center; margin-bottom: 20px;">
+                        🎓 解锁后你将获得什么？
+                    </h3>
+                    
+                    <div style="background: white; padding: 25px; border-radius: 15px; margin-bottom: 20px;">
+                        <p style="color: #333; font-size: 16px; line-height: 2; text-align: center; margin-bottom: 20px;">
+                            <strong style="color: #D55D30; font-size: 18px;">《普通人社会化指南》完整版手册</strong><br>
+                            涵盖社交能力培养的方方面面
+                        </p>
+                        
+                        <div style="background: #F5F5F5; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                            <h4 style="color: #D55D30; text-align: center; margin-bottom: 15px; font-size: 1.2em;">
+                                📚 6大核心板块 + 400+页实战内容
+                            </h4>
+                            <ul style="list-style: none; padding: 0; margin: 0; color: #666; line-height: 2.2;">
+                                <li style="padding: 8px 0; border-bottom: 1px solid #E0E0E0;">
+                                    <strong style="color: #2E7D32;">✅ 开篇寄语：</strong>揭秘社会化成长的底层逻辑
+                                </li>
+                                <li style="padding: 8px 0; border-bottom: 1px solid #E0E0E0;">
+                                    <strong style="color: #2E7D32;">✅ 第二部分：</strong>23课实战技巧 - 从社交到职场的全方位攻略
+                                </li>
+                                <li style="padding: 8px 0; border-bottom: 1px solid #E0E0E0;">
+                                    <strong style="color: #2E7D32;">✅ 第三部分：</strong>67课职场篇 - 教你成为真正的"会来事"的人
+                                </li>
+                                <li style="padding: 8px 0; border-bottom: 1px solid #E0E0E0;">
+                                    <strong style="color: #2E7D32;">✅ 第四部分：</strong>67课人情篇 - 人情往来的智慧与边界感
+                                </li>
+                                <li style="padding: 8px 0; border-bottom: 1px solid #E0E0E0;">
+                                    <strong style="color: #2E7D32;">✅ 第五部分：</strong>自我成长 - 从内到外的全面提升
+                                </li>
+                                <li style="padding: 8px 0;">
+                                    <strong style="color: #2E7D32;">✅ 第六部分：</strong>实用工具 - 各种场景的应对话术模板
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div style="text-align: center; margin: 25px 0;">
+                            <h4 style="color: #D55D30; margin-bottom: 15px; font-size: 1.2em;">
+                                📖 完整目录预览 👇
+                            </h4>
+                            <img src="catalog.jpg" alt="完整目录" style="width: 100%; max-width: 600px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); cursor: pointer;" onclick="showCatalogFullscreen(this)">
+                            <p style="color: #999; font-size: 13px; margin-top: 10px;">
+                                💡 点击图片可放大查看
+                            </p>
+                        </div>
+
+                        <div style="background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%); padding: 20px; border-radius: 12px; margin-top: 20px; border-left: 4px solid #4CAF50;">
+                            <div style="display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                                <div style="text-align: center;">
+                                    <div style="font-size: 2em; color: #2E7D32; font-weight: bold;">100万字</div>
+                                    <div style="color: #666; font-size: 14px;">干货内容</div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div style="font-size: 2em; color: #2E7D32; font-weight: bold;">400+页</div>
+                                    <div style="color: #666; font-size: 14px;">专业指南</div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div style="font-size: 1.6em; color: #2E7D32; font-weight: bold;">累计超157课</div>
+                                    <div style="color: #D55D30; font-size: 13px; font-weight: bold;">（持续增加中）</div>
+                                </div>
+                            </div>
+                            <p style="text-align: center; color: #2E7D32; margin-top: 15px; font-size: 15px; font-weight: bold;">
+                                📱 百度网盘在线阅读 · 支持手机/电脑 · 随时随地学习
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- 目录展示区域 - 结束 -->
+                <div class="comparison-table">
+                    <div class="comparison-row">
+                        <span class="comparison-free">基础诊断（4维度分数）</span>
+                        <span>→</span>
+                        <span class="comparison-paid">100万字完整手册 + 67课系统内容</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span class="comparison-free">简单建议（3条）</span>
+                        <span>→</span>
+                        <span class="comparison-paid">针对你短板的定制改进方案</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span class="comparison-free">无实战案例</span>
+                        <span>→</span>
+                        <span class="comparison-paid">6大部分：开篇寄语+实战技巧+自我成长等</span>
+                    </div>
+                    <div class="comparison-row">
+                        <span class="comparison-free">无工具包</span>
+                        <span>→</span>
+                        <span class="comparison-paid">人情往来指南+职场社交全攻略</span>
+                    </div>
                 </div>
                 
-                <div style="text-align: center; margin: 30px 0;">
-                    <div style="font-size: 3em; color: #E65100; font-weight: bold;">¥2.9</div>
-                    <div style="color: #999; margin-top: 10px;">限时特惠 · 一杯奶茶的价格了解真实的自己</div>
+                <div class="price-tag">
+                    <div class="original-price">原价 ¥99</div>
+                    <div class="current-price">¥19.9</div>
+                    <div class="price-note">限时特惠 · 100万字干货，一杯奶茶的价格换来终身受用的社交能力</div>
                 </div>
+                
+                <h4 style="text-align: center; color: #D55D30; margin: 30px 0 20px 0; font-size: 1.3em;">
+                    💳 选择支付方式
+                </h4>
                 
                 <div class="payment-section">
-                    <a href="https://qr.alipay.com/tsx15981nt9c4aydmvo2h3d" class="payment-btn alipay" target="_blank">
-                        ⚡ 支付宝支付 ¥2.9
-                    </a>
-                    <a href="javascript:void(0);" class="payment-btn wechat" onclick="alert('请使用支付宝支付')">
-                        ⚡ 微信支付 ¥2.9
+                    <div class="quick-pay-buttons">
+                        <a href="https://qr.alipay.com/tsx15981nt9c4aydmvo2h3d" class="payment-btn alipay" target="_blank">
+                            <span class="icon">⚡</span> 支付宝快捷支付
+                        </a>
+                        <a href="javascript:void(0);" onclick="showWechatScan()" class="payment-btn wechat">
+                            <span class="icon">⚡</span> 微信快捷支付
+                        </a>
+                    </div>
+
+                    <div class="divider-or"><span>或</span></div>
+
+                    <div class="scan-payment">
+                        <div class="scan-title">📱 扫码支付</div>
+                        <div class="qr-code-grid">
+                            <div class="qr-code-item">
+                                <img src="wechat_qrcode.jpg" alt="微信收款码" id="wechatQR">
+                            </div>
+                            <div class="qr-code-item">
+                                <img src="alipay_qrcode.png" alt="支付宝收款码" id="alipayQR">
+                            </div>
+                        </div>
+                        <div class="scan-tip">
+                            💡 保存后打开APP → 扫一扫 → 相册选择
+                        </div>
+                    </div>
+
+                    <div class="divider-or"><span>或</span></div>
+
+                    <div class="transfer-payment">
+                        <div class="transfer-title">💳 复制账号转账</div>
+                        <div class="copy-item">
+                            <span id="wechatID">jsh9109</span>
+                            <button onclick="copyToClipboard('jsh9109', this)">复制微信</button>
+                        </div>
+                        <div class="copy-item">
+                            <span id="alipayID">313360631@qq.com</span>
+                            <button onclick="copyToClipboard('313360631@qq.com', this)">复制支付宝</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <h4 style="text-align: center; color: #D55D30; margin: 30px 0 20px 0; font-size: 1.2em;">
+                    📸 上传付款截图，立即获取手册
+                </h4>
+                
+                <label for="paymentProofInput" class="btn btn-primary" style="margin-top: 15px; display: flex; align-items: center; justify-content: center; cursor: pointer; background: #D55D30;">
+                    📸 点击上传付款截图
+                </label>
+                <input type="file" id="paymentProofInput" accept="image/*" onchange="handlePaymentProof(event)" style="display: none;">
+                
+                <div style="text-align: center; margin-top: 20px; padding: 15px; background: #E3F2FD; border-radius: 10px;">
+                    <p style="color: #1976D2; font-size: 14px; margin: 0;">
+                        🔒 信息安全保证：付款后立即显示网盘链接，无需等待
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <div id="fullReportPage" class="card hidden">
+            <div class="thank-banner">
+                <h3>🎓 感谢你的支持！</h3>
+                <p>付款成功，下方是您的专属资料</p>
+            </div>
+
+            <!-- 新增：百度网盘链接显示区域 -->
+            <div class="pan-link-section">
+                <h3>📦 您的《社会化完全手册》</h3>
+                <div class="pan-link-box">
+                    <div class="pan-link-item">
+                        <span class="pan-link-label">🔗 网盘链接</span>
+                        <span class="pan-link-value" id="panLinkText">https://pan.baidu.com/s/1TPexZexAwxC-is2dfD_LeA</span>
+                        <button class="copy-pan-btn" onclick="copyPanLink()">一键复制</button>
+                    </div>
+                    <div class="pan-link-item">
+                        <span class="pan-link-label">🔑 提取码</span>
+                        <span class="pan-link-value" id="panCodeText">8888</span>
+                        <button class="copy-pan-btn" onclick="copyPanCode()">一键复制</button>
+                    </div>
+                </div>
+
+                <div class="save-tip">
+                    <h4>💾 重要提示：请务必保存资料！</h4>
+                    <p>✅ 方法1：将链接和提取码发送到<strong>微信文件传输助手</strong>或<strong>任意微信好友</strong></p>
+                    <p>✅ 方法2：保存到手机<strong>备忘录</strong>或<strong>笔记应用</strong></p>
+                    <p>✅ 方法3：截图保存此页面</p>
+                    <p style="color: #D55D30; margin-top: 10px;"><strong>⚠️ 网页关闭后将无法找回，请立即保存！</strong></p>
+                </div>
+
+                <div style="text-align: center; margin-top: 25px;">
+                    <a href="https://pan.baidu.com/s/1TPexZexAwxC-is2dfD_LeA" target="_blank" style="display: inline-block; padding: 15px 40px; background: #2196F3; color: white; text-decoration: none; border-radius: 10px; font-size: 18px; font-weight: bold;">
+                        🚀 立即打开百度网盘
                     </a>
                 </div>
             </div>
+            
+            <div class="result-banner">
+                <h2>📊 你的社会化程度完整报告</h2>
+                <div class="rpi-score" id="fullSocialScore">72分</div>
+                <div class="rpi-level" id="fullSocialLevel">中级社交者 - 还有提升空间</div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="fullRadarChart"></canvas>
+            </div>
+            
+            <div class="report-section">
+                <h3>📋 第一部分：你的社会化短板诊断</h3>
+                <div id="weaknessAnalysis">
+                    <p>根据你的测试结果，系统已为你生成详细的社会化能力分析报告。</p>
+                </div>
+            </div>
+            
+            <div class="report-section">
+                <h3>📚 第二部分：手册核心内容</h3>
+                <div style="background: #FFF9F0; padding: 25px; border-radius: 12px; border-left: 4px solid #D55D30;">
+                    <h4 style="color: #D55D30; margin-bottom: 15px;">📖 100万字完整手册包含：</h4>
+                    <ul style="line-height: 2; color: #666;">
+                        <li><strong>开篇寄语</strong> - 社会化成长的底层逻辑</li>
+                        <li><strong>第二部分（67课）</strong> - 职场那些事儿：从新人到高手的完整攻略</li>
+                        <li><strong>第三部分（67课）</strong> - 人情往来指南：如何做个"会来事"的聪明人</li>
+                        <li><strong>第四部分</strong> - 提升你的情商：处理冲突、边界感、应对技巧</li>
+                        <li><strong>第五部分</strong> - 自我成长进阶：沟通能力、情绪管理、人际关系</li>
+                        <li><strong>第六部分</strong> - 实用工具包：各种场合应对话术模板</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="report-section">
+                <h3>💡 第三部分：针对你的改进建议</h3>
+                <p>根据你的短板，建议重点学习手册中的以下章节：</p>
+                <div style="background: #E8F5E9; padding: 20px; border-radius: 12px; margin-top: 15px;">
+                    <h4 style="color: #2E7D32;">📌 30天能力提升计划</h4>
+                    <ul style="line-height: 2; color: #666; margin-top: 10px;">
+                        <li><strong>第1-10天：</strong>学习《人情洞察力》相关章节，提升察言观色能力</li>
+                        <li><strong>第11-20天：</strong>学习《边界感掌控》，掌握进退分寸</li>
+                        <li><strong>第21-30天：</strong>学习《利益平衡术》，理解人情往来的智慧</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div style="background: linear-gradient(135deg, #FF6B6B 0%, #FF5252 100%); color: white; padding: 25px; border-radius: 15px; text-align: center; margin: 30px 0;">
+                <h3 style="margin-bottom: 15px; font-size: 1.5em;">⚠️ 最后提醒</h3>
+                <p style="font-size: 16px; line-height: 1.8;">
+                    网盘链接已在上方显示，请<strong>立即保存</strong>！<br>
+                    页面关闭后将<strong>无法找回</strong>链接<br>
+                    如有问题，请联系客服微信：<strong>HCH91178</strong>
+                </p>
+            </div>
+            
+            <button class="btn btn-secondary" onclick="location.reload()">重新测评</button>
+        </div>
+        
+        <div id="adminPanel" class="card hidden">
+            <h2>🔐 管理员后台</h2>
+            <div class="input-group">
+                <input type="password" id="adminPassword" placeholder="请输入管理员密码">
+            </div>
+            <button class="btn btn-primary" onclick="verifyAdmin()">登录</button>
+            
+            <div id="adminContent" class="hidden"></div>
         </div>
     </div>
     
     <script>
-        const MASTER_CODE = "MBTI-MASTER";
+        // ==================== [配置区 - 请替换这些值] ====================
+        const SERVER_JIANG_KEY = 'SCT303445TGU9j8Q5VLg6rT7eryLe8L41v'; // ✅ 你的Server酱Key
+        const BAIDU_PAN_LINK = 'https://pan.baidu.com/s/1TPexZexAwxC-is2dfD_LeA'; // ⚠️ 替换成你的网盘链接
+        const BAIDU_PAN_CODE = '8888'; // ⚠️ 替换成你的提取码
+        const CUSTOMER_SERVICE_WECHAT = 'HCH91178'; // 客服微信
+        const ADMIN_PASSWORD = 'lss900201'; // 管理员密码
+        const MASTER_CODE = "GEMINI-MASTER"; // 万能卡密
+        const PRODUCT_PRICE = 19.9; // 产品价格
+        // ============================================================
         
-        /* 40道MBTI测试题目 */
+        /* 40道社会化测试题目 */
         const questions = [
-            /* E-I 维度: 外向 vs 内向 (10题) */
-            {text: '在社交场合中，我通常是主动发起对话的人。', dimension: 0, direction: 'E'},
-            {text: '我喜欢独处，享受一个人的时光。', dimension: 0, direction: 'I'},
-            {text: '与一大群人在一起会让我感到精力充沛。', dimension: 0, direction: 'E'},
-            {text: '我更喜欢深入的一对一交谈，而不是群体聚会。', dimension: 0, direction: 'I'},
-            {text: '我经常主动结识新朋友。', dimension: 0, direction: 'E'},
-            {text: '长时间社交后，我需要独处来恢复精力。', dimension: 0, direction: 'I'},
-            {text: '我喜欢成为众人关注的焦点。', dimension: 0, direction: 'E'},
-            {text: '我倾向于先思考再说话。', dimension: 0, direction: 'I'},
-            {text: '我喜欢参加各种社交活动。', dimension: 0, direction: 'E'},
-            {text: '我有一个小而亲密的朋友圈。', dimension: 0, direction: 'I'},
+            /* 维度A: 人情洞察力 (10题) */
+            {text: '领导说"这件事你看着办"，我能理解他真正的意思。', dimension: 0},
+            {text: '朋友说"随便"，我知道他其实有偏好。', dimension: 0},
+            {text: '我能从别人的语气判断他是真高兴还是假客套。', dimension: 0},
+            {text: '同事突然对我冷淡，我能分析出可能的原因。', dimension: 0},
+            {text: '我经常听不懂别人话里的潜台词。', dimension: 0, reverse: true},
+            {text: '聚会时，我能感觉到谁和谁关系好、谁和谁有矛盾。', dimension: 0},
+            {text: '别人委婉拒绝我时，我往往意识不到。', dimension: 0, reverse: true},
+            {text: '我能从细节判断一个人是真心还是应付。', dimension: 0},
+            {text: '我经常不明白为什么突然被孤立或排挤。', dimension: 0, reverse: true},
+            {text: '我能准确判断什么场合该说什么话。', dimension: 0},
             
-            /* S-N 维度: 实感 vs 直觉 (10题) */
-            {text: '我更关注事实和细节，而不是可能性。', dimension: 1, direction: 'S'},
-            {text: '我经常思考未来的各种可能性。', dimension: 1, direction: 'N'},
-            {text: '我喜欢按照既定的方法做事。', dimension: 1, direction: 'S'},
-            {text: '我喜欢创新和尝试新方法。', dimension: 1, direction: 'N'},
-            {text: '我更相信实际经验而非理论。', dimension: 1, direction: 'S'},
-            {text: '我经常会想象事物之间的联系和模式。', dimension: 1, direction: 'N'},
-            {text: '我喜欢处理具体的、实际的问题。', dimension: 1, direction: 'S'},
-            {text: '我喜欢思考抽象的概念和理论。', dimension: 1, direction: 'N'},
-            {text: '我注重当下，活在现实中。', dimension: 1, direction: 'S'},
-            {text: '我经常思考未来和长远的影响。', dimension: 1, direction: 'N'},
+            /* 维度B: 边界感掌控 (10题) */
+            {text: '我知道什么时候该主动，什么时候该等待。', dimension: 1},
+            {text: '我经常因为"太热情"让别人感到压力。', dimension: 1, reverse: true},
+            {text: '我能根据关系亲疏调整帮忙的程度。', dimension: 1},
+            {text: '我很难拒绝别人的请求，即使我不想做。', dimension: 1, reverse: true},
+            {text: '我知道哪些话题不该在公开场合讨论。', dimension: 1},
+            {text: '我经常在不合适的时机提要求。', dimension: 1, reverse: true},
+            {text: '我能把握好与领导/客户的距离感。', dimension: 1},
+            {text: '我经常说错话得罪人，但不知道错在哪。', dimension: 1, reverse: true},
+            {text: '我能分清哪些忙该帮、哪些忙不该帮。', dimension: 1},
+            {text: '我不知道怎么优雅地拒绝别人。', dimension: 1, reverse: true},
             
-            /* T-F 维度: 思考 vs 情感 (10题) */
-            {text: '做决定时，我更重视逻辑和客观分析。', dimension: 2, direction: 'T'},
-            {text: '做决定时，我会优先考虑他人的感受。', dimension: 2, direction: 'F'},
-            {text: '我认为公平比和谐更重要。', dimension: 2, direction: 'T'},
-            {text: '我很容易理解和感受他人的情绪。', dimension: 2, direction: 'F'},
-            {text: '我倾向于批判性地分析问题。', dimension: 2, direction: 'T'},
-            {text: '我很难对别人说"不"。', dimension: 2, direction: 'F'},
-            {text: '别人可能认为我过于理性或冷漠。', dimension: 2, direction: 'T'},
-            {text: '维持和谐的人际关系对我很重要。', dimension: 2, direction: 'F'},
-            {text: '我更看重真相，即使会伤害他人。', dimension: 2, direction: 'T'},
-            {text: '我经常为他人着想，有时忽略自己的需求。', dimension: 2, direction: 'F'},
+            /* 维度C: 利益平衡术 (10题) */
+            {text: '我懂得"吃亏是福"的真正含义。', dimension: 2},
+            {text: '我总是被人占便宜，但不知道怎么办。', dimension: 2, reverse: true},
+            {text: '我知道什么时候该"算清楚"，什么时候该"糊涂"。', dimension: 2},
+            {text: '我经常因为太计较被人疏远。', dimension: 2, reverse: true},
+            {text: '我明白人情债比金钱债更难还。', dimension: 2},
+            {text: '别人请我帮忙，我不知道该不该要回报。', dimension: 2, reverse: true},
+            {text: '我能平衡"给予"和"索取"的关系。', dimension: 2},
+            {text: '我经常帮了别人，反而被人怨恨。', dimension: 2, reverse: true},
+            {text: '我知道怎么让别人"欠我人情"。', dimension: 2},
+            {text: '我不懂为什么有些人总能"四两拨千斤"。', dimension: 2, reverse: true},
             
-            /* J-P 维度: 判断 vs 感知 (10题) */
-            {text: '我喜欢提前计划并按计划行事。', dimension: 3, direction: 'J'},
-            {text: '我更喜欢保持开放和灵活。', dimension: 3, direction: 'P'},
-            {text: '我有条理，喜欢把事情做完。', dimension: 3, direction: 'J'},
-            {text: '我经常拖延到最后一刻才开始工作。', dimension: 3, direction: 'P'},
-            {text: '我喜欢列清单并按顺序完成任务。', dimension: 3, direction: 'J'},
-            {text: '我喜欢即兴发挥，适应变化。', dimension: 3, direction: 'P'},
-            {text: '未完成的事情会让我感到不安。', dimension: 3, direction: 'J'},
-            {text: '我倾向于同时进行多个项目。', dimension: 3, direction: 'P'},
-            {text: '我喜欢确定性和可预测性。', dimension: 3, direction: 'J'},
-            {text: '我喜欢探索新的选择，即使已经有了计划。', dimension: 3, direction: 'P'}
+            /* 维度D: 情绪管理力 (10题) */
+            {text: '被误解时，我能控制情绪先不解释。', dimension: 3},
+            {text: '我经常因为情绪失控说出后悔的话。', dimension: 3, reverse: true},
+            {text: '我能在愤怒时仍然保持理智。', dimension: 3},
+            {text: '受委屈时我很难忍住不当场发作。', dimension: 3, reverse: true},
+            {text: '我知道什么情绪该表达，什么情绪该隐藏。', dimension: 3},
+            {text: '别人批评我时，我很容易炸毛。', dimension: 3, reverse: true},
+            {text: '我能用冷静的方式处理冲突。', dimension: 3},
+            {text: '我经常被情绪牵着走，做出冲动的决定。', dimension: 3, reverse: true},
+            {text: '我能在压力下保持微笑和礼貌。', dimension: 3},
+            {text: '我不知道怎么控制自己的脸色和语气。', dimension: 3, reverse: true}
         ];
         
-        const options = ['完全不符合', '不太符合', '不确定', '比较符合', '非常符合'];
+        const options = ['完全不像我', '不太像我', '不确定', '有点像我', '非常像我'];
         
+        let currentPage = 'verify';
         let currentQuestion = 0;
         let answers = new Array(40).fill(0);
+        let currentCard = null;
+        
+        function getDeviceFingerprint() {
+            try {
+                let canvasFingerprint = '';
+                try {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    if (ctx) {
+                        ctx.textBaseline = 'top';
+                        ctx.font = '14px Arial';
+                        ctx.fillText('fingerprint', 2, 2);
+                        canvasFingerprint = canvas.toDataURL().slice(-50);
+                    }
+                } catch (e) {
+                    canvasFingerprint = Date.now().toString();
+                }
+                
+                const fingerprint = [
+                    navigator.userAgent || 'unknown',
+                    navigator.language || 'unknown',
+                    (screen.width || 0) + 'x' + (screen.height || 0),
+                    screen.colorDepth || 0,
+                    new Date().getTimezoneOffset(),
+                    canvasFingerprint
+                ].join('|');
+                
+                let hash = 0;
+                for (let i = 0; i < fingerprint.length; i++) {
+                    const char = fingerprint.charCodeAt(i);
+                    hash = ((hash << 5) - hash) + char;
+                    hash = hash & hash;
+                }
+                
+                return 'device_' + Math.abs(hash).toString(36);
+            } catch (error) {
+                return 'device_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+            }
+        }
         
         function verifyCard() {
             const cardInput = document.getElementById('cardInput');
             const errorDiv = document.getElementById('errorMessage');
             const cardCode = cardInput.value.trim().toUpperCase();
             
-            if (cardCode === MASTER_CODE || cardCode.length >= 8) {
-                showTestPage();
-            } else {
-                errorDiv.textContent = '请输入有效的测评卡号';
-                errorDiv.style.display = 'block';
+            if (cardCode === MASTER_CODE) {
+                currentCard = MASTER_CODE;
+                showTestPage(); 
+                return;
             }
+            
+            if (!cardCode) {
+                errorDiv.textContent = '请输入测评卡号';
+                errorDiv.style.display = 'block';
+                return;
+            }
+            
+            if (!/^SH-[A-Z0-9]{4}-[A-Z0-9]{4}$/.test(cardCode)) {
+                if (!/^[A-Z0-9]{8,20}$/.test(cardCode)) {
+                    errorDiv.textContent = '卡号格式不正确';
+                    errorDiv.style.display = 'block';
+                    return;
+                }
+            }
+            
+            const deviceId = getDeviceFingerprint();
+            let cards = JSON.parse(localStorage.getItem('socialCards') || '[]');
+            let card = cards.find(c => c.code === cardCode);
+            
+            if (!card) {
+                card = { 
+                    code: cardCode, 
+                    deviceId: deviceId,
+                    createdAt: new Date().toISOString(),
+                    firstUsedAt: new Date().toISOString(),
+                    testCount: 0
+                };
+                cards.push(card);
+            } else {
+                if (card.deviceId && card.deviceId !== deviceId) {
+                    errorDiv.textContent = '该卡号已在其他设备使用，无法在本设备使用';
+                    errorDiv.style.display = 'block';
+                    return;
+                }
+                
+                if (!card.deviceId) {
+                    card.deviceId = deviceId;
+                    card.firstUsedAt = new Date().toISOString();
+                }
+            }
+            
+            card.testCount = (card.testCount || 0) + 1;
+            card.lastUsedAt = new Date().toISOString();
+            
+            localStorage.setItem('socialCards', JSON.stringify(cards));
+            
+            currentCard = card;
+            showTestPage();
         }
         
         function showTestPage() {
             document.getElementById('cardVerifyPage').classList.add('hidden');
             document.getElementById('testPage').classList.remove('hidden');
+            document.getElementById('fullReportPage').classList.add('hidden');
+            document.getElementById('freeResultPage').classList.add('hidden');
+            document.getElementById('adminPanel').classList.add('hidden');
+
+            currentPage = 'test';
             currentQuestion = 0;
             answers = new Array(40).fill(0);
             renderQuestion();
@@ -836,656 +1682,630 @@ var _hmt = _hmt || [];
         }
         
         function calculateResult() {
-            // 计算每个维度的得分
-            const scores = {E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0};
+            const dimensionScores = [0, 0, 0, 0];
+            const dimensionCounts = [10, 10, 10, 10];
             
             questions.forEach((q, i) => {
-                const score = answers[i];
-                scores[q.direction] += score;
+                let score = answers[i];
+                if (q.reverse) {
+                    score = 6 - score;
+                }
+                dimensionScores[q.dimension] += score;
             });
             
-            // 确定MBTI类型
-            const type = 
-                (scores.E > scores.I ? 'E' : 'I') +
-                (scores.S > scores.N ? 'S' : 'N') +
-                (scores.T > scores.F ? 'T' : 'F') +
-                (scores.J > scores.P ? 'J' : 'P');
+            const finalScores = dimensionScores.map((score, i) => 
+                Math.round((score / (dimensionCounts[i] * 5)) * 25)
+            );
             
-            // MBTI类型描述
-            // MBTI类型详细数据库
-            const typeDetails = {
-                'INTJ': {
-                    name: 'INTJ - 建筑师',
-                    nickname: '建筑师',
-                    desc: '想象力丰富的战略家，凡事都有计划。善于独立思考，追求知识和能力的提升。',
-                    coreTraits: [
-                        '战略性思维：善于看到大局，制定长远计划',
-                        '独立性强：喜欢独立工作，自主决策',
-                        '追求知识：对新知识和理论有强烈好奇心',
-                        '完美主义：对自己和他人都有高标准'
-                    ],
-                    strengths: ['战略思维', '独立自主', '逻辑分析', '追求卓越'],
-                    challenges: ['过于理性', '沟通技巧', '情感表达', '灵活应变'],
-                    careers: ['科学家', '工程师', '系统分析师', '战略顾问', '研究员', '建筑师'],
-                    workStyle: '你在工作中是一个天生的战略家。喜欢分析复杂问题，制定长远规划。你独立工作效率最高，能够专注于深度思考。对工作质量要求极高，不满足于表面的解决方案。',
-                    relationshipStyle: '在人际关系中，你倾向于深度而非广度。你有一个小而精的朋友圈，重视智力层面的交流。可能显得冷漠或难以接近，但对真正的朋友非常忠诚。需要学会更多地表达情感和理解他人感受。',
-                    growthAdvice: [
-                        '学会倾听他人的情感需求，不要只关注逻辑',
-                        '尝试更灵活地应对变化，不要过于执着于计划',
-                        '练习用更温和的方式表达批评和建议',
-                        '给自己和他人留有犯错的空间'
-                    ],
-                    compatibility: {
-                        best: 'ENFP、ENTP - 能激发你的创造力',
-                        good: 'INTJ、INFJ - 深度理解你的思维方式',
-                        challenging: 'ESFP、ESTP - 可能觉得过于肤浅'
-                    },
-                    celebrities: ['埃隆·马斯克', '马克·扎克伯格', '牛顿', '尼采', '克里斯托弗·诺兰']
-                },
-                'INTP': {
-                    name: 'INTP - 逻辑学家',
-                    nickname: '逻辑学家',
-                    desc: '具有创造力的思想家，对知识有着难以满足的渴望。擅长分析和解决复杂问题。',
-                    coreTraits: [
-                        '分析思维：喜欢拆解复杂问题，寻找内在逻辑',
-                        '理论导向：对抽象概念和理论框架感兴趣',
-                        '好奇心强：不断探索新领域和新想法',
-                        '独立思考：不轻信权威，喜欢质疑和验证'
-                    ],
-                    strengths: ['逻辑分析', '创新思维', '客观理性', '问题解决'],
-                    challenges: ['实际应用', '情感表达', '社交技巧', '完成任务'],
-                    careers: ['科学家', '程序员', '数学家', '哲学家', '研究员', '分析师'],
-                    workStyle: '你是天生的问题解决者和理论家。喜欢探索复杂的概念，提出创新的解决方案。你在独立工作时最有创造力，需要足够的思考空间。可能会因为过于追求完美的理论而忽视实际应用。',
-                    relationshipStyle: '你在社交中可能显得有些距离感和心不在焉。更喜欢讨论想法而非闲聊。你的朋友圈很小，但关系深厚。需要学会更多地关注他人的情感需求，而不只是逻辑层面的交流。',
-                    growthAdvice: [
-                        '学会将理论转化为实际行动',
-                        '注意倾听他人的情感，不要只关注逻辑',
-                        '设定明确的截止日期，避免无休止的完善',
-                        '主动分享你的想法，不要都憋在心里'
-                    ],
-                    compatibility: {
-                        best: 'ENTJ、ESTJ - 能帮你实现想法',
-                        good: 'INTP、INTJ - 理解你的思维方式',
-                        challenging: 'ESFJ、ISFJ - 可能觉得过于情感化'
-                    },
-                    celebrities: ['爱因斯坦', '比尔·盖茨', '拉里·佩奇', '亚里士多德', '达尔文']
-                },
-                'ENTJ': {
-                    name: 'ENTJ - 指挥官',
-                    nickname: '指挥官',
-                    desc: '大胆、富有想象力且意志强大的领导者，总能找到或创造解决方法。',
-                    coreTraits: [
-                        '天生领导：善于组织资源，指挥团队',
-                        '战略眼光：能看到全局，制定宏伟计划',
-                        '果断高效：快速决策，推动执行',
-                        '目标导向：专注于结果和成就'
-                    ],
-                    strengths: ['领导能力', '战略规划', '果断决策', '高效执行'],
-                    challenges: ['过于强势', '忽视情感', '不够耐心', '工作狂'],
-                    careers: ['CEO', '管理者', '企业家', '律师', '投资银行家', '军官'],
-                    workStyle: '你是天生的领导者和组织者。善于制定战略，整合资源，推动团队达成目标。你工作高效，果断决策，不喜欢拖延和低效。可能会因为过于关注结果而忽视团队成员的感受。',
-                    relationshipStyle: '在人际关系中，你往往占据主导地位。你直接、坦率，有时可能显得过于强势。你欣赏有能力、有主见的人。需要学会更多地倾听和尊重他人的想法，不要总是控制局面。',
-                    growthAdvice: [
-                        '学会倾听团队成员的想法和感受',
-                        '不要急于下结论，给他人表达的机会',
-                        '注意工作与生活的平衡',
-                        '用更温和的方式表达批评'
-                    ],
-                    compatibility: {
-                        best: 'INTP、INFP - 提供不同视角',
-                        good: 'ENTJ、INTJ - 相互理解和欣赏',
-                        challenging: 'ISFP、INFP - 可能觉得过于敏感'
-                    },
-                    celebrities: ['史蒂夫·乔布斯', '玛格丽特·撒切尔', '拿破仑', '富兰克林·罗斯福']
-                },
-                'ENTP': {
-                    name: 'ENTP - 辩论家',
-                    nickname: '辩论家',
-                    desc: '聪明好奇的思想家，喜欢智力上的挑战。善于提出新观点和创新方案。',
-                    coreTraits: [
-                        '创新思维：不断产生新想法和可能性',
-                        '善于辩论：享受智力层面的交锋',
-                        '适应力强：能快速应对变化',
-                        '魅力四射：善于激发他人的兴趣'
-                    ],
-                    strengths: ['创新能力', '思维敏捷', '适应变化', '说服力强'],
-                    challenges: ['难以专注', '不善执行', '争强好胜', '忽视细节'],
-                    careers: ['创业者', '发明家', '营销专家', '顾问', '律师', '演说家'],
-                    workStyle: '你是创新的推动者和观点的挑战者。喜欢头脑风暴，提出创新方案。你工作时充满活力，但可能难以长期专注于单一项目。更喜欢开创新项目而非维护现有系统。',
-                    relationshipStyle: '你在社交中活跃而有魅力，善于激发有趣的讨论。你喜欢辩论，有时可能显得好斗。你欣赏聪明、有趣的人。需要学会不要为了辩论而辩论，注意他人的感受。',
-                    growthAdvice: [
-                        '学会将想法落实为行动',
-                        '注意完成已开始的项目，不要总是追求新鲜感',
-                        '倾听他人观点，不要总想证明自己是对的',
-                        '关注细节和实际执行'
-                    ],
-                    compatibility: {
-                        best: 'INFJ、INTJ - 能深入讨论想法',
-                        good: 'ENTP、ENFP - 相互激发创造力',
-                        challenging: 'ISTJ、ISFJ - 可能觉得过于传统'
-                    },
-                    celebrities: ['托马斯·爱迪生', '本杰明·富兰克林', '马克·吐温', '亚当·萨维奇']
-                },
-                'INFJ': {
-                    name: 'INFJ - 提倡者',
-                    nickname: '提倡者',
-                    desc: '安静而神秘的理想主义者，用不懈的努力去实现自己的目标。',
-                    coreTraits: [
-                        '理想主义：相信能让世界变得更美好',
-                        '洞察人心：能深刻理解他人的动机和感受',
-                        '有原则：坚守自己的价值观和信念',
-                        '使命感强：渴望做有意义的事情'
-                    ],
-                    strengths: ['洞察力强', '富有同情心', '坚持原则', '创造力'],
-                    challenges: ['过度理想化', '容易倦怠', '难以开放', '完美主义'],
-                    careers: ['心理咨询师', '作家', '教师', 'NGO工作者', '人力资源', '艺术家'],
-                    workStyle: '你在工作中追求意义和目标。你关注如何帮助他人和改善世界。你有强大的洞察力，能理解复杂的人际动态。你需要独处时间来思考和充电，可能在团队环境中感到疲惫。',
-                    relationshipStyle: '你在人际关系中深刻而真诚。你有极强的同理心，能深入理解他人。但你也可能因此承担过多他人的情绪负担。你的朋友圈小但关系深厚。需要学会设定界限，保护自己的能量。',
-                    growthAdvice: [
-                        '学会说"不"，不要承担所有人的问题',
-                        '接受不完美的现实，不要过于理想化',
-                        '定期独处充电，不要忽视自己的需求',
-                        '更开放地分享内心世界'
-                    ],
-                    compatibility: {
-                        best: 'ENFP、ENTP - 能激发你的创造力',
-                        good: 'INFJ、INFP - 深度理解和共鸣',
-                        challenging: 'ESTP、ESFP - 可能觉得过于肤浅'
-                    },
-                    celebrities: ['马丁·路德·金', '纳尔逊·曼德拉', '甘地', '柏拉图', 'J.K.罗琳']
-                },
-                'INFP': {
-                    name: 'INFP - 调停者',
-                    nickname: '调停者',
-                    desc: '诗意而善良的利他主义者，总是热心地为正义和公平事业而奋斗。',
-                    coreTraits: [
-                        '价值驱动：由内在价值观和信念指引',
-                        '创造力强：富有想象力和艺术天赋',
-                        '理想主义：相信美好和可能性',
-                        '同理心强：深刻理解和关怀他人'
-                    ],
-                    strengths: ['创造力', '同理心', '适应力', '忠于理想'],
-                    challenges: ['过于敏感', '难以决断', '理想化', '拖延倾向'],
-                    careers: ['作家', '艺术家', '心理咨询师', '社工', '教师', '摄影师'],
-                    workStyle: '你在工作中追求意义和价值。你有丰富的创造力和想象力，适合从事创意工作。你需要足够的自主性和灵活性。可能会因为过于追求完美而拖延，或因为项目与价值观冲突而失去动力。',
-                    relationshipStyle: '你在人际关系中温暖、真诚，富有同情心。你深刻理解他人的感受，但也容易受伤。你理想化人际关系，可能会感到失望。需要学会更现实地看待他人，设定健康的界限。',
-                    growthAdvice: [
-                        '学会接受不完美，不要过于理想化',
-                        '设定明确的截止日期，克服拖延',
-                        '不要把批评过于当真，建立心理韧性',
-                        '学会更直接地表达需求'
-                    ],
-                    compatibility: {
-                        best: 'ENFJ、ENTJ - 帮你实现理想',
-                        good: 'INFP、INFJ - 相互理解和支持',
-                        challenging: 'ESTJ、ISTJ - 可能觉得过于务实'
-                    },
-                    celebrities: ['威廉·莎士比亚', '约翰·列侬', 'J.R.R.托尔金', '文森特·梵高']
-                },
-                'ENFJ': {
-                    name: 'ENFJ - 主人公',
-                    nickname: '主人公',
-                    desc: '富有魅力且鼓舞人心的领导者，能够吸引听众的注意力。',
-                    coreTraits: [
-                        '天生领袖：善于激励和引导他人',
-                        '富有同理心：深刻理解他人需求',
-                        '沟通高手：表达清晰、有感染力',
-                        '责任感强：关心集体利益和福祉'
-                    ],
-                    strengths: ['领导能力', '沟通协调', '激励他人', '组织能力'],
-                    challenges: ['过度付出', '难以说不', '过于理想化', '容易倦怠'],
-                    careers: ['教师', 'HR经理', '培训师', '公关专家', '政治家', '非营利组织领导'],
-                    workStyle: '你是天生的导师和领导者。你善于识别和培养他人的潜力，营造积极的团队氛围。你关注人际和谐，可能会为了维持关系而做出妥协。需要学会在他人需求和自己目标之间找到平衡。',
-                    relationshipStyle: '你在人际关系中温暖、外向，善于建立深厚的连接。你关心他人的成长和幸福，有时可能过度介入。你需要被认可和欣赏。要学会不要为了取悦他人而牺牲自己的需求。',
-                    growthAdvice: [
-                        '学会说"不"，设定健康的界限',
-                        '关注自己的需求，不要只想着他人',
-                        '接受不是所有人都能被帮助或改变',
-                        '定期充电，避免情感耗竭'
-                    ],
-                    compatibility: {
-                        best: 'INFP、ISFP - 相互欣赏和支持',
-                        good: 'ENFJ、ENFP - 相互激发和鼓励',
-                        challenging: 'ISTP、INTP - 可能觉得过于理性冷漠'
-                    },
-                    celebrities: ['奥普拉·温弗瑞', '巴拉克·奥巴马', '马丁·路德·金', '本·阿弗莱克']
-                },
-                'ENFP': {
-                    name: 'ENFP - 竞选者',
-                    nickname: '竞选者',
-                    desc: '热情、有创造力和善于社交的自由精神，总能找到理由微笑。',
-                    coreTraits: [
-                        '充满热情：对生活充满好奇和兴奋',
-                        '创造力强：不断产生新想法和可能性',
-                        '社交达人：善于建立各种关系',
-                        '价值驱动：追求真实和意义'
-                    ],
-                    strengths: ['创造力', '热情活力', '社交能力', '适应力强'],
-                    challenges: ['难以专注', '过度承诺', '情绪化', '缺乏条理'],
-                    careers: ['记者', '市场营销', '演员', '心理咨询师', '创业者', '公关'],
-                    workStyle: '你在工作中充满创意和热情。你喜欢探索新想法，与人合作。你能激发团队的积极性，但可能难以长期专注于单一项目。你需要变化和新鲜感来保持动力。',
-                    relationshipStyle: '你在社交中活跃而有魅力，善于建立广泛的人际网络。你真诚热情，但有时可能过于理想化关系。你需要深度的情感连接。要学会不要过度承诺，给自己留有空间。',
-                    growthAdvice: [
-                        '学会专注，完成已开始的项目',
-                        '不要过度承诺，学会说"不"',
-                        '建立日常习惯和结构',
-                        '理性看待人际关系，不要过于理想化'
-                    ],
-                    compatibility: {
-                        best: 'INTJ、INFJ - 提供深度和方向',
-                        good: 'ENFP、ENTP - 相互激发创造力',
-                        challenging: 'ISTJ、ESTJ - 可能觉得过于严格'
-                    },
-                    celebrities: ['罗宾·威廉姆斯', '艾伦·德杰尼勒斯', '威尔·史密斯', '昆汀·塔伦蒂诺']
-                },
-                'ISTJ': {
-                    name: 'ISTJ - 物流师',
-                    nickname: '物流师',
-                    desc: '实际而注重事实的人，可靠性无可置疑。做事有条不紊，值得信赖。',
-                    coreTraits: [
-                        '责任感强：认真对待承诺和义务',
-                        '注重细节：关注具体事实和细节',
-                        '有条不紊：喜欢结构和秩序',
-                        '务实可靠：脚踏实地，值得信任'
-                    ],
-                    strengths: ['可靠负责', '条理性强', '注重细节', '实事求是'],
-                    challenges: ['过于僵化', '抗拒变化', '缺乏灵活性', '难以表达情感'],
-                    careers: ['会计师', '审计师', '项目管理', '军官', '质量控制', '法官'],
-                    workStyle: '你是最可靠和负责任的员工。你严格遵守规则和程序，注重细节和准确性。你喜欢清晰的期望和结构化的环境。可能会因为过于坚持既定方法而错过创新机会。',
-                    relationshipStyle: '你在人际关系中忠诚可靠，但可能显得保守和拘谨。你重视承诺，行动多于言语。你需要时间来建立信任。要学会更灵活地应对变化，表达感受。',
-                    growthAdvice: [
-                        '尝试接受变化，不要过于坚持计划',
-                        '学会表达情感和欣赏他人',
-                        '偶尔冒险尝试新方法',
-                        '不要因为追求完美而过度工作'
-                    ],
-                    compatibility: {
-                        best: 'ESFP、ESTP - 带来乐趣和活力',
-                        good: 'ISTJ、ESTJ - 相互理解和尊重',
-                        challenging: 'ENFP、ENTP - 可能觉得过于混乱'
-                    },
-                    celebrities: ['乔治·华盛顿', '安吉拉·默克尔', '沃伦·巴菲特', '杰夫·贝索斯']
-                },
-                'ISFJ': {
-                    name: 'ISFJ - 守卫者',
-                    nickname: '守卫者',
-                    desc: '非常专注且温暖的守护者，时刻准备着保卫所爱之人。细心周到，责任感强。',
-                    coreTraits: [
-                        '细心体贴：关注他人需求和感受',
-                        '忠诚可靠：对人对事都极其负责',
-                        '传统导向：尊重传统和既定规则',
-                        '默默奉献：不求回报地帮助他人'
-                    ],
-                    strengths: ['细心体贴', '可靠忠诚', '勤勉负责', '组织能力'],
-                    challenges: ['过度付出', '难以拒绝', '抗拒变化', '不善表达需求'],
-                    careers: ['护士', '教师', '行政助理', '图书管理员', '营养师', '内审员'],
-                    workStyle: '你是最细心和可靠的团队成员。你关注细节，乐于助人，营造和谐的工作环境。你默默付出，可能不善于主动争取认可。需要学会表达自己的需求和界限。',
-                    relationshipStyle: '你在人际关系中温暖、忠诚，乐于照顾他人。你记得他人的喜好和需求，但可能过度付出而忽视自己。你需要被欣赏和认可。要学会设定界限，不要让自己筋疲力尽。',
-                    growthAdvice: [
-                        '学会说"不"，不要承担所有事情',
-                        '表达自己的需求，不要只关注他人',
-                        '尝试接受变化，不要过于坚持传统',
-                        '寻求认可时更主动'
-                    ],
-                    compatibility: {
-                        best: 'ESTP、ESFP - 带来活力和新鲜感',
-                        good: 'ISFJ、ISTJ - 相互支持和理解',
-                        challenging: 'ENTP、ENFP - 可能觉得过于不稳定'
-                    },
-                    celebrities: ['特蕾莎修女', '凯特·米德尔顿', '罗莎·帕克斯', 'Mr. Rogers']
-                },
-                'ESTJ': {
-                    name: 'ESTJ - 总经理',
-                    nickname: '总经理',
-                    desc: '出色的管理者，在管理事务和人员方面无与伦比。注重秩序和效率。',
-                    coreTraits: [
-                        '组织能力强：善于建立系统和流程',
-                        '果断务实：快速决策，注重效率',
-                        '责任感强：认真履行职责和承诺',
-                        '传统导向：尊重规则和既定秩序'
-                    ],
-                    strengths: ['组织管理', '果断高效', '责任心强', '执行力强'],
-                    challenges: ['过于强硬', '不够灵活', '忽视情感', '过于传统'],
-                    careers: ['企业高管', '项目经理', '警察', '法官', '军官', '银行经理'],
-                    workStyle: '你是天生的管理者和组织者。你建立清晰的流程，确保团队高效运作。你果断决策，不容忍低效和混乱。可能会因为过于关注规则而忽视人的因素。',
-                    relationshipStyle: '你在人际关系中直接、坦率，重视传统和承诺。你是可靠的伴侣和朋友，但可能显得过于强硬。你需要学会更多地倾听和理解他人的感受，不要总想控制局面。',
-                    growthAdvice: [
-                        '学会倾听他人的观点和感受',
-                        '灵活应对变化，不要过于僵化',
-                        '用更温和的方式表达批评',
-                        '认可过程而非只关注结果'
-                    ],
-                    compatibility: {
-                        best: 'ISFP、INFP - 提供不同视角',
-                        good: 'ESTJ、ISTJ - 相互理解和尊重',
-                        challenging: 'INFP、ENFP - 可能觉得过于感性'
-                    },
-                    celebrities: ['亨利·福特', '米歇尔·奥巴马', '西蒙·考威尔', '科林·鲍威尔']
-                },
-                'ESFJ': {
-                    name: 'ESFJ - 执政官',
-                    nickname: '执政官',
-                    desc: '极具同情心、受欢迎且热心肠的人，总是热衷于助人。善于营造和谐氛围。',
-                    coreTraits: [
-                        '热心助人：乐于照顾和支持他人',
-                        '社交能力强：善于建立和维护关系',
-                        '责任感强：认真对待承诺和义务',
-                        '传统导向：尊重社会规范和期望'
-                    ],
-                    strengths: ['人际关系', '组织协调', '责任心强', '热情体贴'],
-                    challenges: ['过度在意他人看法', '难以接受批评', '过于情绪化', '抗拒变化'],
-                    careers: ['护士', '教师', 'HR专员', '活动策划', '销售', '客服经理'],
-                    workStyle: '你是团队的粘合剂和支持者。你营造和谐的工作氛围，关注每个人的需求。你擅长组织活动和协调人际关系。可能会因为过于关注和谐而回避必要的冲突。',
-                    relationshipStyle: '你在人际关系中温暖、体贴，乐于照顾他人。你重视和谐和传统，可能过于在意他人的看法。你需要被欣赏和认可。要学会不要为了取悦他人而忽视自己的需求。',
-                    growthAdvice: [
-                        '学会接受建设性批评，不要过于敏感',
-                        '关注自己的需求，不要只想着他人',
-                        '接受不是所有人都会喜欢你',
-                        '尝试接受变化和新想法'
-                    ],
-                    compatibility: {
-                        best: 'ISFP、ISTP - 提供不同视角',
-                        good: 'ESFJ、ENFJ - 相互支持和理解',
-                        challenging: 'INTP、INTJ - 可能觉得过于冷漠'
-                    },
-                    celebrities: ['泰勒·斯威夫特', '詹妮弗·加纳', '比尔·克林顿', '史蒂夫·哈维']
-                },
-                'ISTP': {
-                    name: 'ISTP - 鉴赏家',
-                    nickname: '鉴赏家',
-                    desc: '大胆且实际的实验者，擅长使用各种工具。善于解决实际问题。',
-                    coreTraits: [
-                        '动手能力强：善于操作工具和机械',
-                        '冷静理性：客观分析问题',
-                        '适应力强：灵活应对变化',
-                        '独立自主：喜欢按自己的节奏工作'
-                    ],
-                    strengths: ['解决问题', '动手能力', '冷静应对', '灵活适应'],
-                    challenges: ['情感表达', '长期承诺', '规则约束', '理论学习'],
-                    careers: ['机械师', '工程师', '飞行员', '消防员', '外科医生', '运动员'],
-                    workStyle: '你是实际问题的解决者。你喜欢动手操作，在危机中保持冷静。你需要自主性和灵活性，不喜欢被规则束缚。可能会因为追求即时结果而忽视长期规划。',
-                    relationshipStyle: '你在人际关系中独立而低调。你用行动而非言语表达关心。你需要个人空间，可能显得冷漠或难以捉摸。要学会更多地表达情感和承诺。',
-                    growthAdvice: [
-                        '学会表达感受，不要只靠行动',
-                        '考虑长期后果，不要只关注当下',
-                        '主动参与社交，不要总是独来独往',
-                        '尊重规则和他人的感受'
-                    ],
-                    compatibility: {
-                        best: 'ESFJ、ESTJ - 提供结构和支持',
-                        good: 'ISTP、ESTP - 相互理解和尊重',
-                        challenging: 'ENFJ、INFJ - 可能觉得过于情绪化'
-                    },
-                    celebrities: ['克林特·伊斯特伍德', '汤姆·克鲁斯', '迈克尔·乔丹', '布鲁斯·李']
-                },
-                'ISFP': {
-                    name: 'ISFP - 探险家',
-                    nickname: '探险家',
-                    desc: '灵活且有魅力的艺术家，时刻准备着探索和体验新事物。',
-                    coreTraits: [
-                        '艺术气质：对美和创造有天生的感受力',
-                        '活在当下：享受当前的体验',
-                        '温和友善：对他人温暖而接纳',
-                        '价值驱动：按照内在价值观生活'
-                    ],
-                    strengths: ['艺术感受力', '适应灵活', '温和友善', '实践能力'],
-                    challenges: ['难以规划', '过于敏感', '回避冲突', '缺乏条理'],
-                    careers: ['艺术家', '设计师', '音乐家', '厨师', '兽医', '理疗师'],
-                    workStyle: '你在工作中追求美和创造。你喜欢实践和体验，而非理论和规划。你需要自由和灵活性，在压力和约束下难以发挥。可能会因为过于关注当下而忽视未来规划。',
-                    relationshipStyle: '你在人际关系中温暖、真诚，但也需要个人空间。你用行动表达关心，但可能难以表达深层情感。你回避冲突，可能会压抑自己的需求。要学会更直接地表达感受和需求。',
-                    growthAdvice: [
-                        '学会规划未来，不要只活在当下',
-                        '直接表达需求，不要压抑情绪',
-                        '适当面对冲突，不要总是回避',
-                        '建立基本的日常结构'
-                    ],
-                    compatibility: {
-                        best: 'ESFJ、ENFJ - 提供支持和方向',
-                        good: 'ISFP、INFP - 相互理解和欣赏',
-                        challenging: 'ENTJ、ESTJ - 可能觉得过于强势'
-                    },
-                    celebrities: ['迈克尔·杰克逊', '玛丽莲·梦露', '鲍勃·迪伦', '凯文·科斯特纳']
-                },
-                'ESTP': {
-                    name: 'ESTP - 企业家',
-                    nickname: '企业家',
-                    desc: '聪明、精力充沛且善于洞察力的人，真心享受生活在边缘的感觉。',
-                    coreTraits: [
-                        '精力充沛：充满活力，喜欢行动',
-                        '善于察言观色：敏锐观察环境和他人',
-                        '冒险精神：喜欢冒险和刺激',
-                        '实用主义：关注实际结果'
-                    ],
-                    strengths: ['行动力强', '善于应变', '社交能力', '实用主义'],
-                    challenges: ['冲动行事', '缺乏耐心', '忽视长远', '规则意识弱'],
-                    careers: ['企业家', '销售', '营销', '急救人员', '股票经纪人', '警察'],
-                    workStyle: '你在工作中充满活力和行动力。你快速决策，在压力下表现出色。你喜欢多样性和挑战，不适合重复性工作。可能会因为追求即时结果而忽视细节和长期规划。',
-                    relationshipStyle: '你在社交中活跃而有魅力，善于读懂他人。你享受当下的乐趣，但可能难以做出长期承诺。你需要刺激和变化。要学会更深入地建立关系，不要总是追求新鲜感。',
-                    growthAdvice: [
-                        '学会三思而后行，不要太冲动',
-                        '考虑长期后果，制定计划',
-                        '培养耐心，完成已开始的项目',
-                        '尊重规则和他人的感受'
-                    ],
-                    compatibility: {
-                        best: 'ISFJ、ISTJ - 提供稳定和支持',
-                        good: 'ESTP、ESFP - 相互激发活力',
-                        challenging: 'INFJ、INFP - 可能觉得过于理想化'
-                    },
-                    celebrities: ['唐纳德·特朗普', '麦当娜', '温斯顿·丘吉尔', '欧内斯特·海明威']
-                },
-                'ESFP': {
-                    name: 'ESFP - 表演者',
-                    nickname: '表演者',
-                    desc: '自发的、精力充沛和热情的表演者，生活在他们周围从不感到无聊。',
-                    coreTraits: [
-                        '热情外向：享受与人互动和表演',
-                        '活在当下：充分享受每一刻',
-                        '乐观积极：总能找到乐趣',
-                        '感染力强：能激发他人的热情'
-                    ],
-                    strengths: ['社交能力', '乐观积极', '适应力强', '感染力'],
-                    challenges: ['难以规划', '易分心', '回避深度', '过于关注他人看法'],
-                    careers: ['演员', '销售', '活动策划', '导游', '教练', '公关'],
-                    workStyle: '你在工作中充满活力和热情。你善于激发团队士气，营造积极氛围。你喜欢与人互动，在动态环境中表现最好。可能会因为追求乐趣而忽视必要的细节和规划。',
-                    relationshipStyle: '你在社交中是派对的灵魂，充满魅力和活力。你慷慨、温暖，喜欢让他人开心。你活在当下，但可能回避深度和长期承诺。要学会更深入地建立关系，不要只停留在表面。',
-                    growthAdvice: [
-                        '学会规划未来，不要只关注当下',
-                        '培养专注力，完成已开始的任务',
-                        '建立深度关系，不要只追求表面乐趣',
-                        '发展独立性，不要过于依赖他人认可'
-                    ],
-                    compatibility: {
-                        best: 'ISFJ、ISTJ - 提供稳定和支持',
-                        good: 'ESFP、ESTP - 相互激发活力',
-                        challenging: 'INTJ、INTP - 可能觉得过于严肃'
-                    },
-                    celebrities: ['玛丽莲·梦露', '埃尔顿·约翰', '杰米·福克斯', '阿黛尔']
-                }
-            };
+            const totalScore = Math.round(finalScores.reduce((a, b) => a + b, 0) / 4);
             
-            const info = typeDetails[type] || typeDetails['INTJ'];
-            
-            // 计算百分比
-            const percentages = {
-                'E-I': Math.round((scores.E / (scores.E + scores.I)) * 100),
-                'S-N': Math.round((scores.S / (scores.S + scores.N)) * 100),
-                'T-F': Math.round((scores.T / (scores.T + scores.F)) * 100),
-                'J-P': Math.round((scores.J / (scores.J + scores.P)) * 100)
-            };
-            
-            sessionStorage.setItem('mbtiResult', JSON.stringify({
-                type: type,
-                name: info.name,
-                nickname: info.nickname,
-                desc: info.desc,
-                percentages: percentages,
-                details: info
+            let level, icon, desc;
+            if (totalScore >= 20) {
+                level = '高级社交者';
+                icon = '👔';
+                desc = '你已经掌握了高超的社交技巧，能够在复杂的人际关系中游刃有余，是别人眼中的"高情商"代表。';
+            } else if (totalScore >= 15) {
+                level = '中高级社交者';
+                icon = '🎯';
+                desc = '你的社交能力已经超过大多数人，但在某些维度还有明显的提升空间，通过系统学习可以快速进阶。';
+            } else if (totalScore >= 10) {
+                level = '中级社交者';
+                icon = '📊';
+                desc = '你已经掌握了基本的社交规则，但在人情世故、边界感把握等方面还有明显的提升空间。';
+            } else {
+                level = '初级社交者';
+                icon = '🌱';
+                desc = '你在社交方面还处于起步阶段，很多人情世故和潜规则还不太了解，需要系统性学习提升。';
+            }
+
+            sessionStorage.setItem('testResult', JSON.stringify({
+                scores: finalScores,
+                totalScore: totalScore,
+                level: level,
+                icon: icon,
+                desc: desc
             }));
             
             showFreeResult();
         }
         
         function showFreeResult() {
-            const result = JSON.parse(sessionStorage.getItem('mbtiResult'));
-            const details = result.details;
+            const result = JSON.parse(sessionStorage.getItem('testResult'));
             
             document.getElementById('cardVerifyPage').classList.add('hidden');
             document.getElementById('testPage').classList.add('hidden');
+            document.getElementById('fullReportPage').classList.add('hidden');
             document.getElementById('freeResultPage').classList.remove('hidden');
-            
-            document.getElementById('mbtiType').textContent = result.type;
-            document.getElementById('mbtiNickname').textContent = result.nickname;
-            document.getElementById('typeName').textContent = result.name;
+            document.getElementById('adminPanel').classList.add('hidden');
+            currentPage = 'freeResult';
+
+            document.getElementById('archetypeIcon').textContent = result.icon;
+            document.getElementById('archetypeName').textContent = result.level;
+            document.getElementById('typeName').textContent = result.level;
             document.getElementById('typeDesc').textContent = result.desc;
             
-            // 渲染核心特质
-            const coreTraitsHtml = details.coreTraits.map(trait => 
-                `<div style="background: white; padding: 15px; border-radius: 10px; margin: 10px 0; border-left: 4px solid #667eea;">
-                    <p style="color: #666; font-size: 1.05em; line-height: 1.6; margin: 0;">${trait}</p>
-                </div>`
-            ).join('');
-            document.getElementById('coreTraits').innerHTML = coreTraitsHtml;
-            
-            // 渲染优势、挑战、职业
-            document.getElementById('strengthsList').innerHTML = details.strengths.map(s => `• ${s}`).join('<br>');
-            document.getElementById('challengesList').innerHTML = details.challenges.map(c => `• ${c}`).join('<br>');
-            document.getElementById('careersList').innerHTML = details.careers.slice(0, 4).map(c => `• ${c}`).join('<br>');
-            
-            // 渲染工作风格
-            document.getElementById('workStyle').innerHTML = `
-                <p style="color: #666; font-size: 1.05em; line-height: 1.8;">${details.workStyle}</p>
-            `;
-            
-            // 渲染人际关系风格
-            document.getElementById('relationshipStyle').innerHTML = `
-                <p style="color: #666; font-size: 1.05em; line-height: 1.8;">${details.relationshipStyle}</p>
-            `;
-            
-            // 渲染成长建议
-            const growthAdviceHtml = details.growthAdvice.map((advice, index) => 
-                `<div style="background: white; padding: 15px; border-radius: 10px; margin: 10px 0; display: flex; align-items: flex-start;">
-                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0; margin-right: 15px;">
-                        ${index + 1}
-                    </div>
-                    <p style="color: #666; font-size: 1.05em; line-height: 1.6; margin: 0;">${advice}</p>
-                </div>`
-            ).join('');
-            document.getElementById('growthAdvice').innerHTML = growthAdviceHtml;
-            
-            // 渲染互动建议
-            document.getElementById('compatibility').innerHTML = `
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px;">
-                    <div style="background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%); padding: 20px; border-radius: 12px; border-left: 4px solid #4CAF50;">
-                        <div style="color: #2E7D32; font-weight: bold; margin-bottom: 10px;">✅ 最佳搭档</div>
-                        <div style="color: #666; font-size: 0.95em; line-height: 1.6;">${details.compatibility.best}</div>
-                    </div>
-                    <div style="background: linear-gradient(135deg, #FFF9F0 0%, #FFE082 100%); padding: 20px; border-radius: 12px; border-left: 4px solid #FFA726;">
-                        <div style="color: #E65100; font-weight: bold; margin-bottom: 10px;">👍 和谐相处</div>
-                        <div style="color: #666; font-size: 0.95em; line-height: 1.6;">${details.compatibility.good}</div>
-                    </div>
-                    <div style="background: linear-gradient(135deg, #FFEBEE 0%, #FFCDD2 100%); padding: 20px; border-radius: 12px; border-left: 4px solid #E57373;">
-                        <div style="color: #C62828; font-weight: bold; margin-bottom: 10px;">⚠️ 需要磨合</div>
-                        <div style="color: #666; font-size: 0.95em; line-height: 1.6;">${details.compatibility.challenging}</div>
-                    </div>
-                </div>
-            `;
-            
-            // 渲染名人代表
-            const celebritiesHtml = details.celebrities.map(name => 
-                `<div style="background: white; padding: 15px 20px; border-radius: 10px; display: inline-block; margin: 5px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                    <span style="color: #E65100; font-weight: bold;">⭐</span>
-                    <span style="color: #666; margin-left: 8px;">${name}</span>
-                </div>`
-            ).join('');
-            document.getElementById('celebrities').innerHTML = `
-                <div style="text-align: center;">${celebritiesHtml}</div>
-                <p style="text-align: center; color: #999; margin-top: 20px; font-size: 0.9em;">
-                    这些名人可能拥有与你相同的性格类型
-                </p>
-            `;
-            
-            drawBarChart(result.percentages);
+            drawRadarChart('radarChart', result.scores);
             
             const scoresList = document.getElementById('scoresList');
-            scoresList.innerHTML = `
-                <div class="score-item">
-                    <div class="score-item-name">E-I 维度</div>
-                    <div class="score-item-value">${result.type[0] === 'E' ? 'E' : 'I'} ${result.type[0] === 'E' ? result.percentages['E-I'] : 100 - result.percentages['E-I']}%</div>
-                    <div class="score-item-desc">${result.type[0] === 'E' ? '外向型' : '内向型'}</div>
-                </div>
-                <div class="score-item">
-                    <div class="score-item-name">S-N 维度</div>
-                    <div class="score-item-value">${result.type[1] === 'S' ? 'S' : 'N'} ${result.type[1] === 'S' ? result.percentages['S-N'] : 100 - result.percentages['S-N']}%</div>
-                    <div class="score-item-desc">${result.type[1] === 'S' ? '实感型' : '直觉型'}</div>
-                </div>
-                <div class="score-item">
-                    <div class="score-item-name">T-F 维度</div>
-                    <div class="score-item-value">${result.type[2] === 'T' ? 'T' : 'F'} ${result.type[2] === 'T' ? result.percentages['T-F'] : 100 - result.percentages['T-F']}%</div>
-                    <div class="score-item-desc">${result.type[2] === 'T' ? '思考型' : '情感型'}</div>
-                </div>
-                <div class="score-item">
-                    <div class="score-item-name">J-P 维度</div>
-                    <div class="score-item-value">${result.type[3] === 'J' ? 'J' : 'P'} ${result.type[3] === 'J' ? result.percentages['J-P'] : 100 - result.percentages['J-P']}%</div>
-                    <div class="score-item-desc">${result.type[3] === 'J' ? '判断型' : '感知型'}</div>
-                </div>
-            `;
+            const dimensionNames = ['人情洞察力', '边界感掌控', '利益平衡术', '情绪管理力'];
+            const dimensionIcons = ['👁️', '🎯', '⚖️', '🎭'];
+            
+            scoresList.innerHTML = '';
+            result.scores.forEach((score, i) => {
+                const scoreItem = document.createElement('div');
+                scoreItem.className = 'score-item';
+                scoreItem.innerHTML = `
+                    <div class="score-item-name">${dimensionIcons[i]} ${dimensionNames[i]}</div>
+                    <div class="score-item-value">${score} / 25</div>
+                    <div class="score-item-desc">${score > 15 ? '优势维度' : '需要提升'}</div>
+                `;
+                scoresList.appendChild(scoreItem);
+            });
             
             window.scrollTo(0, 0);
         }
         
-        function drawBarChart(percentages) {
-            const ctx = document.getElementById('barChart').getContext('2d');
+        function drawRadarChart(canvasId, scores) {
+            const ctx = document.getElementById(canvasId).getContext('2d');
+            const isMobile = window.innerWidth <= 768;
+            
+            const existingChart = Chart.getChart(canvasId);
+            if (existingChart) {
+                existingChart.destroy();
+            }
             
             new Chart(ctx, {
-                type: 'bar',
+                type: 'radar',
                 data: {
-                    labels: ['外向-内向', '实感-直觉', '思考-情感', '判断-感知'],
+                    labels: ['人情洞察力', '边界感掌控', '利益平衡术', '情绪管理力'],
                     datasets: [{
-                        label: '倾向程度 (%)',
-                        data: [
-                            percentages['E-I'],
-                            percentages['S-N'],
-                            percentages['T-F'],
-                            percentages['J-P']
-                        ],
-                        backgroundColor: [
-                            'rgba(102, 126, 234, 0.8)',
-                            'rgba(118, 75, 162, 0.8)',
-                            'rgba(102, 126, 234, 0.8)',
-                            'rgba(118, 75, 162, 0.8)'
-                        ],
-                        borderColor: [
-                            'rgb(102, 126, 234)',
-                            'rgb(118, 75, 162)',
-                            'rgb(102, 126, 234)',
-                            'rgb(118, 75, 162)'
-                        ],
-                        borderWidth: 2
+                        label: '你的得分',
+                        data: scores,
+                        backgroundColor: 'rgba(160, 127, 86, 0.2)',
+                        borderColor: '#A07F56',
+                        borderWidth: 3,
+                        pointBackgroundColor: '#A07F56',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2,
+                        pointRadius: 5
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: true,
+                    aspectRatio: isMobile ? 1 : 1.1,
+                    layout: {
+                        padding: isMobile ? {top: 15, bottom: 15, left: 5, right: 5} : {top: 30, bottom: 30, left: 30, right: 30}
+                    },
                     scales: {
-                        y: {
-                            beginAtZero: true,
-                            max: 100,
+                        r: {
+                            min: 0,
+                            max: 25,
                             ticks: {
-                                callback: function(value) {
-                                    return value + '%';
-                                }
-                            }
+                                stepSize: 5,
+                                font: {size: isMobile ? 9 : 11}
+                            },
+                            pointLabels: {
+                                font: {size: isMobile ? 11 : 13, weight: 'bold'},
+                                color: '#856847',
+                                padding: isMobile ? 8 : 15
+                            },
+                            grid: {color: '#F5E8D6'},
+                            angleLines: {color: '#F5E8D6'}
                         }
                     },
                     plugins: {
-                        legend: {
-                            display: false
-                        }
+                        legend: {display: false}
                     }
                 }
             });
         }
+        
+        /* ==================== [核心功能] 处理付款截图上传 - 改为直接显示网盘链接 ==================== */
+        function handlePaymentProof(event) {
+            const file = event.target.files[0];
+            
+            if (file) {
+                showLoadingAnimation();
+                sendWechatNotification(file.name);
+                saveOrderRecord();
+                
+                setTimeout(() => {
+                    closeLoadingAnimation();
+                    showSuccessMessage();
+                    setTimeout(() => {
+                        showFullReport();
+                    }, 1500);
+                }, 1500);
+            }
+        }
+        
+        /* ==================== [微信通知] 通过Server酱发送 ==================== */
+        function sendWechatNotification(fileName) {
+            const title = `💰 新订单：社会化手册（¥${PRODUCT_PRICE}）`;
+            
+            const orderTime = new Date().toLocaleString('zh-CN', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            });
+            
+            const content = `
+## 📮 订单信息
+- **截图文件：** ${fileName}
+- **支付金额：** ¥${PRODUCT_PRICE}
+
+---
+
+## 💰 订单详情
+- **产品：** 社会化完全手册（100万字）
+- **时间：** ${orderTime}
+- **状态：** 用户已自动获取网盘链接
+
+---
+
+## 📋 网盘信息
+- **链接：** ${BAIDU_PAN_LINK}
+- **提取码：** ${BAIDU_PAN_CODE}
+
+---
+
+💡 **说明：** 用户上传付款截图后，系统已自动显示网盘链接，无需手动发货。此通知仅用于订单统计。
+
+如需查看更多订单数据，请访问管理员后台（密码：${ADMIN_PASSWORD}）
+            `.trim();
+            
+            fetch(`https://sctapi.ftqq.com/${SERVER_JIANG_KEY}.send`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    title: title,
+                    desp: content
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.code === 0) {
+                    console.log('✅ 微信通知发送成功', data);
+                } else {
+                    console.error('❌ 通知发送失败', data);
+                }
+            })
+            .catch(error => {
+                console.error('❌ 网络请求失败', error);
+            });
+        }
+        
+        function saveOrderRecord() {
+            const orders = JSON.parse(localStorage.getItem('orderHistory') || '[]');
+            
+            const newOrder = {
+                id: Date.now(),
+                amount: PRODUCT_PRICE,
+                product: '社会化完全手册',
+                time: new Date().toISOString(),
+                status: '已完成',
+                panLink: BAIDU_PAN_LINK,
+                panCode: BAIDU_PAN_CODE
+            };
+            
+            orders.unshift(newOrder);
+            localStorage.setItem('orderHistory', JSON.stringify(orders));
+            
+            console.log('✅ 订单已保存到本地', newOrder);
+        }
+        
+        function showLoadingAnimation() {
+            const loadingDiv = document.createElement('div');
+            loadingDiv.id = 'loadingAnimation';
+            loadingDiv.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.7);
+                z-index: 10000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            `;
+            
+            loadingDiv.innerHTML = `
+                <div style="background: white; padding: 50px 40px; border-radius: 20px; text-align: center; max-width: 400px;">
+                    <div style="font-size: 60px; margin-bottom: 20px; animation: pulse 1.5s infinite;">📦</div>
+                    <h3 style="color: #A07F56; margin-bottom: 15px; font-size: 1.5em;">正在处理订单...</h3>
+                    <p style="color: #666; line-height: 1.6; font-size: 1.1em;">
+                        正在为您准备资料<br>
+                        请稍候...
+                    </p>
+                    <div style="margin-top: 25px;">
+                        <div style="width: 200px; height: 4px; background: #f0f0f0; border-radius: 2px; overflow: hidden; margin: 0 auto;">
+                            <div style="width: 100%; height: 100%; background: linear-gradient(90deg, #A07F56 0%, #D55D30 100%); animation: loading 1.5s infinite;"></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(loadingDiv);
+        }
+        
+        function closeLoadingAnimation() {
+            const loading = document.getElementById('loadingAnimation');
+            if (loading) {
+                loading.remove();
+            }
+        }
+        
+        function showSuccessMessage() {
+            const messageDiv = document.createElement('div');
+            messageDiv.id = 'successMessage';
+            messageDiv.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: white;
+                padding: 50px 40px;
+                border-radius: 20px;
+                box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+                z-index: 10001;
+                text-align: center;
+                max-width: 450px;
+                animation: scaleIn 0.3s ease;
+            `;
+            
+            messageDiv.innerHTML = `
+                <div style="font-size: 80px; margin-bottom: 20px;">✅</div>
+                <h3 style="color: #07C160; margin-bottom: 20px; font-size: 1.8em;">付款成功！</h3>
+                <div style="background: #F0F9FF; padding: 20px; border-radius: 12px; margin-bottom: 20px; border-left: 4px solid #2196F3;">
+                    <p style="color: #666; line-height: 1.8; font-size: 1.05em;">
+                        正在为您显示<strong style="color: #D55D30;">网盘链接</strong><br>
+                        请注意保存，页面关闭后无法找回
+                    </p>
+                </div>
+            `;
+            
+            document.body.appendChild(messageDiv);
+            
+            setTimeout(() => {
+                messageDiv.style.animation = 'scaleOut 0.3s ease';
+                setTimeout(() => {
+                    messageDiv.remove();
+                }, 300);
+            }, 1500);
+        }
+        
+        /* ==================== [新增] 复制网盘链接和提取码的功能 ==================== */
+        function copyPanLink() {
+            const link = BAIDU_PAN_LINK;
+            navigator.clipboard.writeText(link).then(() => {
+                showCopySuccess('网盘链接已复制！');
+            }).catch(err => {
+                alert('复制失败，请手动复制：' + link);
+            });
+        }
+        
+        function copyPanCode() {
+            const code = BAIDU_PAN_CODE;
+            navigator.clipboard.writeText(code).then(() => {
+                showCopySuccess('提取码已复制！');
+            }).catch(err => {
+                alert('复制失败，请手动复制：' + code);
+            });
+        }
+        
+        function showCopySuccess(message) {
+            const toast = document.createElement('div');
+            toast.style.cssText = `
+                position: fixed;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: #4CAF50;
+                color: white;
+                padding: 15px 30px;
+                border-radius: 8px;
+                font-size: 16px;
+                z-index: 10000;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                animation: slideDown 0.3s ease;
+            `;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.animation = 'fadeOut 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 2000);
+        }
+        
+        function showFullReport() {
+            const result = JSON.parse(sessionStorage.getItem('testResult'));
+            
+            document.getElementById('cardVerifyPage').classList.add('hidden');
+            document.getElementById('testPage').classList.add('hidden');
+            document.getElementById('freeResultPage').classList.add('hidden');
+            document.getElementById('fullReportPage').classList.remove('hidden');
+            document.getElementById('adminPanel').classList.add('hidden');
+            
+            // 显示网盘链接
+            document.getElementById('panLinkText').textContent = BAIDU_PAN_LINK;
+            document.getElementById('panCodeText').textContent = BAIDU_PAN_CODE;
+            
+            document.getElementById('fullSocialScore').textContent = result.totalScore + '分';
+            document.getElementById('fullSocialLevel').textContent = result.level;
+            
+            drawRadarChart('fullRadarChart', result.scores);
+            
+            const dimensionNames = ['人情洞察力', '边界感掌控', '利益平衡术', '情绪管理力'];
+            const weakest = result.scores.indexOf(Math.min(...result.scores));
+            
+            document.getElementById('weaknessAnalysis').innerHTML = `
+                <p>根据你的测试结果，你在<strong style="color: #D55D30;">「${dimensionNames[weakest]}」</strong>维度得分较低（${result.scores[weakest]}/25分）。这意味着：</p>
+                <ul style="line-height: 2; color: #666; margin-top: 15px;">
+                    <li>❌ 这是你目前最需要提升的能力维度</li>
+                    <li>❌ 在实际社交中可能经常遇到相关困扰</li>
+                    <li>✅ 好消息是：通过手册的系统学习可以快速改善</li>
+                </ul>
+            `;
+            
+            window.scrollTo(0, 0);
+        }
+        
+        function showWechatScan() {
+            const qrElement = document.getElementById('wechatQR');
+            if (qrElement) {
+                qrElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                alert('微信支付请保存二维码，\n然后打开微信扫一扫 → 相册选择');
+            }
+        }
+        
+        function copyToClipboard(text, buttonElement) {
+            navigator.clipboard.writeText(text).then(function() {
+                const originalText = buttonElement.textContent;
+                buttonElement.textContent = '已复制!';
+                buttonElement.style.background = '#07C160';
+                setTimeout(() => {
+                    buttonElement.textContent = originalText;
+                    buttonElement.style.background = '#A07F56';
+                }, 2000);
+            }, function(err) {
+                alert('复制失败，请手动复制');
+            });
+        }
+        
+        function showAdminPanel() {
+            document.getElementById('cardVerifyPage').classList.add('hidden');
+            document.getElementById('adminPanel').classList.remove('hidden');
+            document.getElementById('fullReportPage').classList.add('hidden');
+            document.getElementById('freeResultPage').classList.add('hidden');
+            document.getElementById('testPage').classList.add('hidden');
+        }
+        
+        function verifyAdmin() {
+            const password = document.getElementById('adminPassword').value;
+            
+            if (password === ADMIN_PASSWORD) {
+                document.getElementById('adminContent').classList.remove('hidden');
+                loadAdminStats();
+            } else {
+                alert('密码错误');
+            }
+        }
+        
+        function loadAdminStats() {
+            const cards = JSON.parse(localStorage.getItem('socialCards') || '[]');
+            
+            const total = cards.length;
+            const used = cards.filter(c => c.deviceId).length;
+            const devices = new Set(cards.filter(c => c.deviceId).map(c => c.deviceId)).size;
+            
+            const orders = JSON.parse(localStorage.getItem('orderHistory') || '[]');
+            const totalRevenue = orders.reduce((sum, order) => sum + (order.amount || 0), 0);
+            
+            const adminContent = document.getElementById('adminContent');
+            adminContent.innerHTML = `
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">${total}</div>
+                        <div class="stat-label">卡密总数</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">${used}</div>
+                        <div class="stat-label">已使用</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">${orders.length}</div>
+                        <div class="stat-label">订单总数</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">¥${totalRevenue.toFixed(1)}</div>
+                        <div class="stat-label">总收入</div>
+                    </div>
+                </div>
+                
+                <h3 style="margin: 30px 0 15px 0;">生成卡密</h3>
+                <div class="input-group">
+                    <input type="number" id="cardCount" placeholder="输入生成数量（1-1000）" min="1" max="1000" value="10">
+                </div>
+                <button class="btn btn-primary" onclick="generateCards()">生成卡密</button>
+                
+                <h3 style="margin: 30px 0 15px 0;">最近订单记录</h3>
+                <div class="recent-records">
+                    ${orders.length === 0 ? 
+                        '<div class="record-item">暂无订单</div>' :
+                        orders.slice(0, 10).map(order => {
+                            const date = new Date(order.time);
+                            const dateStr = `${date.getFullYear()}-${(date.getMonth()+1).toString().padStart(2,'0')}-${date.getDate().toString().padStart(2,'0')} ${date.getHours().toString().padStart(2,'0')}:${date.getMinutes().toString().padStart(2,'0')}`;
+                            return `<div class="record-item">¥${order.amount} - ${dateStr} - ${order.status}</div>`;
+                        }).join('')
+                    }
+                </div>
+                
+                <h3 style="margin: 30px 0 15px 0;">最近使用记录</h3>
+                <div class="recent-records">
+                    ${cards.filter(c => c.lastUsedAt).length === 0 ? 
+                        '<div class="record-item">暂无记录</div>' :
+                        cards.filter(c => c.lastUsedAt)
+                            .sort((a, b) => new Date(b.lastUsedAt) - new Date(a.lastUsedAt))
+                            .slice(0, 5)
+                            .map(card => {
+                                const date = new Date(card.lastUsedAt);
+                                const dateStr = `${date.getFullYear()}-${(date.getMonth()+1).toString().padStart(2,'0')}-${date.getDate().toString().padStart(2,'0')} ${date.getHours().toString().padStart(2,'0')}:${date.getMinutes().toString().padStart(2,'0')}`;
+                                return `<div class="record-item">${card.code} - 使用${card.testCount || 1}次 - ${dateStr}</div>`;
+                            }).join('')
+                    }
+                </div>
+                
+                <button class="btn btn-secondary" onclick="backToMain()" style="margin-top: 30px;">返回主页</button>
+            `;
+        }
+        
+        function generateCards() {
+            const count = parseInt(document.getElementById('cardCount').value);
+            
+            if (!count || count < 1 || count > 1000) {
+                alert('请输入1-1000之间的数字');
+                return;
+            }
+            
+            const cards = JSON.parse(localStorage.getItem('socialCards') || '[]');
+            const newCards = [];
+            
+            for (let i = 0; i < count; i++) {
+                newCards.push({
+                    code: generateCardCode(),
+                    createdAt: new Date().toISOString()
+                });
+            }
+            
+            cards.push(...newCards);
+            localStorage.setItem('socialCards', JSON.stringify(cards));
+            
+            const text = newCards.map(c => c.code).join('\n');
+            const blob = new Blob([text], {type: 'text/plain'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `社会化测试卡密_${new Date().getTime()}.txt`;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            alert(`成功生成${count}个卡密！`);
+            document.getElementById('adminContent').innerHTML = '';
+            loadAdminStats();
+        }
+        
+        function generateCardCode() {
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+            let code = 'SH-';
+            
+            for (let i = 0; i < 4; i++) {
+                code += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            
+            code += '-';
+            
+            for (let i = 0; i < 4; i++) {
+                code += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            
+            return code;
+        }
+        
+        function backToMain() {
+            document.getElementById('adminPanel').classList.add('hidden');
+            document.getElementById('cardVerifyPage').classList.remove('hidden');
+            document.getElementById('testPage').classList.add('hidden');
+            document.getElementById('freeResultPage').classList.add('hidden');
+            document.getElementById('fullReportPage').classList.add('hidden');
+        }
+        // 目录图片点击放大功能
+        function showCatalogFullscreen(img) {
+            const overlay = document.createElement('div');
+            overlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.9);
+                z-index: 10000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: zoom-out;
+                animation: fadeIn 0.3s ease;
+            `;
+            
+            const fullImg = document.createElement('img');
+            fullImg.src = img.src;
+            fullImg.style.cssText = `
+                max-width: 95%;
+                max-height: 95%;
+                border-radius: 8px;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            `;
+            
+            overlay.appendChild(fullImg);
+            document.body.appendChild(overlay);
+            
+            overlay.onclick = function() {
+                overlay.style.animation = 'fadeOut 0.3s ease';
+                setTimeout(() => overlay.remove(), 300);
+            };
+        }
+        window.onload = function() {
+            const cards = JSON.parse(localStorage.getItem('socialCards') || '[]');
+            if (cards.length === 0) {
+                const testCards = [];
+                for (let i = 0; i < 10; i++) {
+                    testCards.push({
+                        code: generateCardCode(),
+                        createdAt: new Date().toISOString()
+                    });
+                }
+                localStorage.setItem('socialCards', JSON.stringify(testCards));
+                console.log('已生成10个测试卡密，请在管理员后台查看（密码：lss900201）');
+            }
+        };
+
+        // 添加fadeOut动画
+        const fadeOutStyle = document.createElement('style');
+        fadeOutStyle.textContent = `
+            @keyframes fadeOut {
+                from { opacity: 1; }
+                to { opacity: 0; }
+            }
+        `;
+        document.head.appendChild(fadeOutStyle);
     </script>
 </body>
 </html>
